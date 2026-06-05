@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import type { InternalNote, QuotationPhoto } from "@prisma/client";
 import { getPrisma } from "@/lib/db/prisma";
 import { requireAdminSession } from "@/lib/auth/session";
 import { anonymizeText, anonymizedCustomerName } from "@/lib/privacy/anonymize";
@@ -81,13 +82,13 @@ export async function anonymizeQuotationPersonalData(formData: FormData) {
         personalDataAnonymizedAt: new Date(),
       },
     }),
-    ...request.notes.map((note) =>
+    ...request.notes.map((note: InternalNote) =>
       prisma.internalNote.update({
         where: { id: note.id },
         data: { body: anonymizeText(note.body) ?? "", containsAnonymizedContent: true },
       }),
     ),
-    ...request.photos.map((photo) =>
+    ...request.photos.map((photo: QuotationPhoto) =>
       prisma.quotationPhoto.update({
         where: { id: photo.id },
         data: { status: "REMOVED_FOR_PRIVACY" },
