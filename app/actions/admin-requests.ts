@@ -1,11 +1,19 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import type { InternalNote, QuotationPhoto } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { getPrisma } from "@/lib/db/prisma";
 import { requireAdminSession } from "@/lib/auth/session";
 import { anonymizeText, anonymizedCustomerName } from "@/lib/privacy/anonymize";
 import { anonymizeSchema, internalNoteSchema, updateStatusSchema } from "@/lib/validation/admin-request";
+
+const quotationRequestWithPrivacyRelations = {
+  include: { notes: true, photos: true },
+} satisfies Prisma.QuotationRequestDefaultArgs;
+
+type QuotationRequestWithPrivacyRelations = Prisma.QuotationRequestGetPayload<
+  typeof quotationRequestWithPrivacyRelations
+>;
 
 export async function updateRequestStatus(formData: FormData) {
   await requireAdminSession();
@@ -62,9 +70,9 @@ export async function anonymizeQuotationPersonalData(formData: FormData) {
   if (!parsed.success) return;
 
   const prisma = getPrisma();
-  const request = await prisma.quotationRequest.findUnique({
+  const request: QuotationRequestWithPrivacyRelations | null = await prisma.quotationRequest.findUnique({
     where: { id: parsed.data.requestId },
-    include: { notes: true, photos: true },
+    ...quotationRequestWithPrivacyRelations,
   });
   if (!request) return;
   if (request.personalDataAnonymizedAt) return;
@@ -82,13 +90,13 @@ export async function anonymizeQuotationPersonalData(formData: FormData) {
         personalDataAnonymizedAt: new Date(),
       },
     }),
-    ...request.notes.map((note: InternalNote) =>
+    ...request.notes.map((note) =>
       prisma.internalNote.update({
         where: { id: note.id },
         data: { body: anonymizeText(note.body) ?? "", containsAnonymizedContent: true },
       }),
     ),
-    ...request.photos.map((photo: QuotationPhoto) =>
+    ...request.photos.map((photo) =>
       prisma.quotationPhoto.update({
         where: { id: photo.id },
         data: { status: "REMOVED_FOR_PRIVACY" },
