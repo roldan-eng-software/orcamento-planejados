@@ -12,15 +12,14 @@ function assertSupabaseEnv(name: string, value: string | undefined, placeholder?
 }
 
 const SUPABASE_URL = assertSupabaseEnv("NEXT_PUBLIC_SUPABASE_URL", process.env.NEXT_PUBLIC_SUPABASE_URL, "https://example.supabase.co");
-const SUPABASE_PUBLISHABLE_KEY = assertSupabaseEnv(
-  "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
-  "publishable-key",
+const SUPABASE_SERVICE_ROLE_KEY = assertSupabaseEnv(
+  "SUPABASE_SERVICE_ROLE_KEY",
+  process.env.SUPABASE_SERVICE_ROLE_KEY,
 );
 
 export async function createServerSupabaseClient() {
   const cookieStore = await cookies();
-  return createServerClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+  return createServerClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
     cookies: {
       getAll() {
         return cookieStore.getAll();
