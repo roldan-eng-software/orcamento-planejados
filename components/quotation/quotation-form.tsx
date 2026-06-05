@@ -29,7 +29,7 @@ export function QuotationForm() {
   const error = (name: string) => state.fieldErrors?.[name]?.[0];
 
   return (
-    <form action={formAction} className="grid gap-5 rounded-md border border-[var(--line)] bg-white p-5 shadow-sm">
+    <form action={formAction} method="post" encType="multipart/form-data" className="grid gap-5 rounded-md border border-[var(--line)] bg-white p-5 shadow-sm">
       <div className="grid gap-4 md:grid-cols-2">
         <Field label="Nome completo" error={error("fullName")}>
           <input className={inputClass} name="fullName" autoComplete="name" />

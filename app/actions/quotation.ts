@@ -38,9 +38,17 @@ export async function submitQuotationRequest(
     };
   }
 
+  const isFileEntry = (value: FormDataEntryValue): value is File =>
+    typeof value === "object" &&
+    value !== null &&
+    "size" in value &&
+    "name" in value;
+
   const files = formData
     .getAll("photos")
-    .filter((file): file is File => file instanceof File && file.size > 0);
+    .filter(isFileEntry)
+    .filter((file) => file.size > 0);
+
   const protocol = generateProtocol();
   const uploadResult = await storeQuotationPhotos(protocol, files);
   if (!uploadResult.ok) {
