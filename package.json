@@ -15,11 +15,13 @@
     "db:migrate": "prisma migrate dev"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "latest",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
     "lucide-react": "latest",
     "next": "latest",
+    "pg": "^8.21.0",
     "react": "latest",
     "react-dom": "latest",
     "resend": "latest",
