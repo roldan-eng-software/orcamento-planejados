@@ -106,15 +106,15 @@
 
 ### Tests for User Story 5
 
-- [ ] T095 [P] [US5] Add Playwright E2E test for homepage notice appearance, required copy, and close behavior in tests/e2e/service-scope-notice.spec.ts
-- [ ] T096 [P] [US5] Add unit test for service-scope notice content constants and acknowledgement label in tests/unit/service-scope-notice-content.test.ts
+- [X] T095 [P] [US5] Add Playwright E2E test for homepage notice appearance, required copy, and close behavior in tests/e2e/service-scope-notice.spec.ts
+- [X] T096 [P] [US5] Add unit test for service-scope notice content constants and acknowledgement label in tests/unit/service-scope-notice-content.test.ts
 
 ### Implementation for User Story 5
 
-- [ ] T097 [US5] Create service-scope notice content constants in lib/content/service-scope-notice.ts
-- [ ] T098 [US5] Implement accessible floating service-scope alert component with transient React state in components/quotation/service-scope-notice.tsx
-- [ ] T099 [US5] Integrate ServiceScopeNotice ahead of homepage guidance in app/(public)/page.tsx
-- [ ] T100 [US5] Verify mobile-safe alert sizing, readable text, visible acknowledgement button, and no horizontal overflow in components/quotation/service-scope-notice.tsx
+- [X] T097 [US5] Create service-scope notice content constants in lib/content/service-scope-notice.ts
+- [X] T098 [US5] Implement accessible floating service-scope alert component with transient React state in components/quotation/service-scope-notice.tsx
+- [X] T099 [US5] Integrate ServiceScopeNotice ahead of homepage guidance in app/(public)/page.tsx
+- [X] T100 [US5] Verify mobile-safe alert sizing, readable text, visible acknowledgement button, and no horizontal overflow in components/quotation/service-scope-notice.tsx
 
 **Checkpoint**: US5 is independently testable from `/` without database, Server Action, cookie, or localStorage changes.
 
@@ -216,7 +216,7 @@
 - [X] T092 Run Playwright E2E suite and record fixes in tests/e2e/
 - [X] T093 Run Lighthouse check for public pages and record results in specs/001-orcaflex-v1/lighthouse-notes.md
 - [X] T094 Verify Constitution Check coverage against specs/001-orcaflex-v1/plan.md
-- [ ] T101 Run service-scope notice focused checks and record any fixes in tests/e2e/service-scope-notice.spec.ts and tests/unit/service-scope-notice-content.test.ts
+- [X] T101 Run service-scope notice focused checks and record any fixes in tests/e2e/service-scope-notice.spec.ts and tests/unit/service-scope-notice-content.test.ts
 
 ---
 
