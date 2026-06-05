@@ -1,20 +1,22 @@
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const SUPABASE_PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+function assertSupabaseEnv(name: string, value: string | undefined, placeholder?: string) {
+  if (!value || (placeholder && value === placeholder)) {
+    throw new Error(
+      `${name} is not configured or is using the placeholder value. Set this env var in Vercel and redeploy.`,
+    );
+  }
 
-if (!SUPABASE_URL || SUPABASE_URL.includes("example.supabase.co")) {
-  throw new Error(
-    "NEXT_PUBLIC_SUPABASE_URL is not configured or is using the placeholder value. Set this env var in Vercel and redeploy.",
-  );
+  return value;
 }
 
-if (!SUPABASE_PUBLISHABLE_KEY || SUPABASE_PUBLISHABLE_KEY === "publishable-key") {
-  throw new Error(
-    "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY is not configured or is using the placeholder value. Set this env var in Vercel and redeploy.",
-  );
-}
+const SUPABASE_URL = assertSupabaseEnv("NEXT_PUBLIC_SUPABASE_URL", process.env.NEXT_PUBLIC_SUPABASE_URL, "https://example.supabase.co");
+const SUPABASE_PUBLISHABLE_KEY = assertSupabaseEnv(
+  "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+  "publishable-key",
+);
 
 export async function createServerSupabaseClient() {
   const cookieStore = await cookies();
