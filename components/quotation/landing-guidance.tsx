@@ -19,7 +19,7 @@ export function LandingGuidance() {
           Conte o que você precisa e receba um retorno organizado do marceneiro.
         </h1>
         <p className="mt-5 max-w-2xl text-lg text-slate-700">
-          O OrcaFlex substitui conversas soltas por um pedido de orçamento com protocolo,
+          A Roldan Marcenaria substitui conversas soltas por um pedido de orçamento com protocolo,
           fotos opcionais e todas as informações para iniciar uma avaliação manual.
         </p>
       </div>

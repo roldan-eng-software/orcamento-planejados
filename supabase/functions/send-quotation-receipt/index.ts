@@ -13,7 +13,7 @@ Deno.serve(async (req) => {
   const { to, name, protocol } = await req.json();
   const resend = new Resend(apiKey);
   const { error } = await resend.emails.send({
-    from: Deno.env.get("RESEND_FROM_EMAIL") ?? "OrcaFlex <noreply@example.com>",
+    from: Deno.env.get("RESEND_FROM_EMAIL") ?? "Roldan Marcenaria <roldan.marcenaria@gmail.com>",
     to,
     subject: `Recebemos seu pedido ${protocol}`,
     text: `Olá, ${name}. Recebemos seu pedido de orçamento ${protocol}.`,

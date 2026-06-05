@@ -9,7 +9,7 @@ export const privacyContent = {
 
 export const contactContent = {
   title: "Contato",
-  address: "Rua Exemplo, 123 - São Paulo, SP",
-  phone: "(11) 90000-0000",
-  email: "contato@orcaflex.com.br",
+  address: "Rua Hugo de Carli,, 35 - São Carlos, SP",
+  phone: "(16) 99240-6202",
+  email: "roldan.marcenaria@gmail.com",
 };

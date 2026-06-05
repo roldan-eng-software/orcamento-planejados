@@ -3,7 +3,7 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "OrcaFlex",
+  title: "Roldan Marcenaria",
   description: "Orcamentos para moveis planejados sob medida.",
 };
 
@@ -16,7 +16,7 @@ export default function RootLayout({
         <header className="border-b border-[var(--line)] bg-white/85">
           <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
             <Link className="text-lg font-bold text-[var(--brand-strong)]" href="/">
-              OrcaFlex
+              Roldan Marcenaria
             </Link>
             <div className="flex items-center gap-4 text-sm text-slate-700">
               <Link href="/privacidade">Privacidade</Link>

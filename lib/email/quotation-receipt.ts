@@ -25,7 +25,7 @@ export async function sendQuotationReceipt(params: {
   try {
     const resend = getResend();
     const { error } = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL ?? "OrcaFlex <noreply@example.com>",
+      from: process.env.RESEND_FROM_EMAIL ?? "Roldan Marcenaria <roldan.marcenaria@gmail.com>",
       to: params.to,
       subject: `Recebemos seu pedido ${params.protocol}`,
       text: `Olá, ${params.name}. Recebemos seu pedido de orçamento ${params.protocol}. Em breve entraremos em contato.`,
