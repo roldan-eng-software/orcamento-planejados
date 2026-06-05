@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ContactChannel {
+  EMAIL
+  WHATSAPP
+}
+
+enum FurnitureType {
+  COZINHA_PLANEJADA
+  GUARDA_ROUPA
+  HOME_OFFICE
+  CLOSET
+  ESTANTE_RACK
+  OUTRO
+}
+
+enum RequestStatus {
+  NOVO
+  EM_ANALISE
+  ORCADO
+  ENCERRADO
+}
+
+enum ReceiptStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+enum PhotoStatus {
+  AVAILABLE
+  UNAVAILABLE
+  REMOVED_FOR_PRIVACY
+}
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+  SUPER_ADMIN
+}
+
+model QuotationRequest {
+  id                       String          @id @default(cuid())
+  protocol                 String          @unique
+  customerName             String?
+  customerEmail            String?
+  customerWhatsapp         String?
+  normalizedEmail          String?
+  normalizedWhatsapp       String?
+  preferredContactChannel  ContactChannel
+  furnitureType            FurnitureType
+  otherFurnitureType       String?
+  installationRoom         String
+  approxWidthCm            Decimal
+  approxHeightCm           Decimal
+  approxDepthCm            Decimal
+  desiredFinishes          String[]
+  hardwarePreferences      String[]
+  additionalDescription    String?
+  budgetRange              String?
+  status                   RequestStatus   @default(NOVO)
+  statusVersion            Int             @default(1)
+  statusUpdatedAt          DateTime        @default(now())
+  receiptStatus            ReceiptStatus   @default(PENDING)
+  receiptAttemptedAt       DateTime?
+  receiptFailureReason     String?
+  lgpdConsentAccepted      Boolean
+  lgpdConsentTextVersion   String
+  lgpdConsentAcceptedAt    DateTime
+  personalDataAnonymizedAt DateTime?
+  quotedValue              Decimal?
+  pricingBreakdown         Json?
+  createdAt                DateTime        @default(now())
+  updatedAt                DateTime        @updatedAt
+  photos                   QuotationPhoto[]
+  notes                    InternalNote[]
+
+  @@index([createdAt])
+  @@index([status])
+  @@index([normalizedEmail, createdAt])
+  @@index([normalizedWhatsapp, createdAt])
+}
+
+model QuotationPhoto {
+  id                 String           @id @default(cuid())
+  quotationRequestId String
+  storagePath        String
+  originalFileName   String
+  contentType        String
+  sizeBytes          Int
+  status             PhotoStatus      @default(AVAILABLE)
+  createdAt          DateTime         @default(now())
+  quotationRequest   QuotationRequest @relation(fields: [quotationRequestId], references: [id], onDelete: Cascade)
+}
+
+model AdminUser {
+  id          String       @id
+  email       String       @unique
+  role        UserRole     @default(ADMIN)
+  createdAt   DateTime     @default(now())
+  lastLoginAt DateTime?
+  notes       InternalNote[]
+}
+
+model InternalNote {
+  id                        String           @id @default(cuid())
+  quotationRequestId        String
+  authorAdminUserId         String
+  body                      String
+  containsAnonymizedContent Boolean          @default(false)
+  createdAt                 DateTime         @default(now())
+  quotationRequest          QuotationRequest @relation(fields: [quotationRequestId], references: [id], onDelete: Cascade)
+  author                    AdminUser        @relation(fields: [authorAdminUserId], references: [id])
+}

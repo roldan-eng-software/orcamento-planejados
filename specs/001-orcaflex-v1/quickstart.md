@@ -20,6 +20,15 @@
 
 ## Validation Scenarios
 
+Run the automated checks before manual validation:
+
+```bash
+npm run lint
+npm run test
+npm run build
+npm run test:e2e
+```
+
 ### 1. Customer submits a valid request
 
 1. Open `/` on a mobile-width viewport.

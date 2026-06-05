@@ -18,16 +18,16 @@
 
 **Purpose**: Initialize the single Next.js application structure, tooling, and environment contracts.
 
-- [ ] T001 Create Next.js app package metadata and scripts in package.json
-- [ ] T002 Configure TypeScript compiler options and path aliases in tsconfig.json
-- [ ] T003 Configure Next.js runtime and image settings in next.config.ts
-- [ ] T004 Configure Tailwind CSS entry styles in app/globals.css
-- [ ] T005 Create root application layout in app/layout.tsx
-- [ ] T006 Create environment variable template in .env.example
-- [ ] T007 [P] Configure linting rules in eslint.config.mjs
-- [ ] T008 [P] Configure test runner in vitest.config.ts
-- [ ] T009 [P] Configure Playwright project in playwright.config.ts
-- [ ] T010 [P] Create shared test setup in tests/setup.ts
+- [X] T001 Create Next.js app package metadata and scripts in package.json
+- [X] T002 Configure TypeScript compiler options and path aliases in tsconfig.json
+- [X] T003 Configure Next.js runtime and image settings in next.config.ts
+- [X] T004 Configure Tailwind CSS entry styles in app/globals.css
+- [X] T005 Create root application layout in app/layout.tsx
+- [X] T006 Create environment variable template in .env.example
+- [X] T007 [P] Configure linting rules in eslint.config.mjs
+- [X] T008 [P] Configure test runner in vitest.config.ts
+- [X] T009 [P] Configure Playwright project in playwright.config.ts
+- [X] T010 [P] Create shared test setup in tests/setup.ts
 
 ---
 
@@ -37,26 +37,26 @@
 
 **Critical**: No user story work can begin until this phase is complete.
 
-- [ ] T011 Create Prisma schema datasource, generator, enums, and models in prisma/schema.prisma
-- [ ] T012 Create initial Prisma migration for OrcaFlex V1 data model in prisma/migrations/001_orcaflex_v1/migration.sql
-- [ ] T013 [P] Create Prisma client singleton in lib/db/prisma.ts
-- [ ] T014 [P] Create Supabase browser/server client helpers in lib/supabase/client.ts and lib/supabase/server.ts
-- [ ] T015 [P] Create role constants and authorization helpers in lib/auth/roles.ts
-- [ ] T016 Create admin session verification helper in lib/auth/session.ts
-- [ ] T017 Create admin route protection middleware in middleware.ts
-- [ ] T018 [P] Create formatting utilities for BRL, DD/MM/YYYY, and Brazilian WhatsApp numbers in lib/formatting/locale.ts
-- [ ] T019 [P] Create quotation form Zod schemas and exported types in lib/validation/quotation.ts
-- [ ] T020 [P] Create admin request Zod schemas and exported types in lib/validation/admin-request.ts
-- [ ] T021 [P] Create storage validation helpers for jpg/png/webp and 5 MB limits in lib/storage/photo-validation.ts
-- [ ] T022 Create Supabase Storage adapter for quotation photos in lib/storage/quotation-photos.ts
-- [ ] T023 Create receipt email adapter contract in lib/email/quotation-receipt.ts
-- [ ] T024 Create protocol generation utility with uniqueness support in lib/quotation/protocol.ts
-- [ ] T025 Create same-contact 10-minute throttling helper in lib/quotation/throttle.ts
-- [ ] T026 Create personal-data anonymization utilities in lib/privacy/anonymize.ts
-- [ ] T027 [P] Create shared form components in components/shared/form-field.tsx
-- [ ] T028 [P] Create shared status badge component in components/shared/status-badge.tsx
-- [ ] T029 [P] Create shared loading and empty-state components in components/shared/feedback.tsx
-- [ ] T030 Create Supabase Edge Function scaffold for receipt email in supabase/functions/send-quotation-receipt/index.ts
+- [X] T011 Create Prisma schema datasource, generator, enums, and models in prisma/schema.prisma
+- [X] T012 Create initial Prisma migration for OrcaFlex V1 data model in prisma/migrations/001_orcaflex_v1/migration.sql
+- [X] T013 [P] Create Prisma client singleton in lib/db/prisma.ts
+- [X] T014 [P] Create Supabase browser/server client helpers in lib/supabase/client.ts and lib/supabase/server.ts
+- [X] T015 [P] Create role constants and authorization helpers in lib/auth/roles.ts
+- [X] T016 Create admin session verification helper in lib/auth/session.ts
+- [X] T017 Create admin route protection middleware in middleware.ts
+- [X] T018 [P] Create formatting utilities for BRL, DD/MM/YYYY, and Brazilian WhatsApp numbers in lib/formatting/locale.ts
+- [X] T019 [P] Create quotation form Zod schemas and exported types in lib/validation/quotation.ts
+- [X] T020 [P] Create admin request Zod schemas and exported types in lib/validation/admin-request.ts
+- [X] T021 [P] Create storage validation helpers for jpg/png/webp and 5 MB limits in lib/storage/photo-validation.ts
+- [X] T022 Create Supabase Storage adapter for quotation photos in lib/storage/quotation-photos.ts
+- [X] T023 Create receipt email adapter contract in lib/email/quotation-receipt.ts
+- [X] T024 Create protocol generation utility with uniqueness support in lib/quotation/protocol.ts
+- [X] T025 Create same-contact 10-minute throttling helper in lib/quotation/throttle.ts
+- [X] T026 Create personal-data anonymization utilities in lib/privacy/anonymize.ts
+- [X] T027 [P] Create shared form components in components/shared/form-field.tsx
+- [X] T028 [P] Create shared status badge component in components/shared/status-badge.tsx
+- [X] T029 [P] Create shared loading and empty-state components in components/shared/feedback.tsx
+- [X] T030 Create Supabase Edge Function scaffold for receipt email in supabase/functions/send-quotation-receipt/index.ts
 
 **Checkpoint**: Foundation ready. User story implementation can now begin.
 
@@ -70,29 +70,29 @@
 
 ### Tests for User Story 1
 
-- [ ] T031 [P] [US1] Add unit tests for quotation validation schema in tests/unit/quotation-validation.test.ts
-- [ ] T032 [P] [US1] Add unit tests for protocol generation in tests/unit/protocol.test.ts
-- [ ] T033 [P] [US1] Add unit tests for repeat-submission throttling in tests/unit/throttle.test.ts
-- [ ] T034 [P] [US1] Add integration tests for submitQuotationRequest success and validation errors in tests/integration/submit-quotation.test.ts
-- [ ] T035 [P] [US1] Add integration tests for photo upload validation and storage failure handling in tests/integration/quotation-photos.test.ts
-- [ ] T036 [P] [US1] Add integration tests for receipt status persistence on email failure in tests/integration/receipt-status.test.ts
-- [ ] T037 [P] [US1] Add Playwright E2E test for public quote submission in tests/e2e/quote-submission.spec.ts
-- [ ] T038 [P] [US1] Add Playwright E2E test for invalid public form feedback in tests/e2e/quote-validation.spec.ts
+- [X] T031 [P] [US1] Add unit tests for quotation validation schema in tests/unit/quotation-validation.test.ts
+- [X] T032 [P] [US1] Add unit tests for protocol generation in tests/unit/protocol.test.ts
+- [X] T033 [P] [US1] Add unit tests for repeat-submission throttling in tests/unit/throttle.test.ts
+- [X] T034 [P] [US1] Add integration tests for submitQuotationRequest success and validation errors in tests/integration/submit-quotation.test.ts
+- [X] T035 [P] [US1] Add integration tests for photo upload validation and storage failure handling in tests/integration/quotation-photos.test.ts
+- [X] T036 [P] [US1] Add integration tests for receipt status persistence on email failure in tests/integration/receipt-status.test.ts
+- [X] T037 [P] [US1] Add Playwright E2E test for public quote submission in tests/e2e/quote-submission.spec.ts
+- [X] T038 [P] [US1] Add Playwright E2E test for invalid public form feedback in tests/e2e/quote-validation.spec.ts
 
 ### Implementation for User Story 1
 
-- [ ] T039 [US1] Implement submitQuotationRequest Server Action in app/actions/quotation.ts
-- [ ] T040 [US1] Implement request creation repository functions in lib/quotation/requests.ts
-- [ ] T041 [US1] Implement photo upload orchestration in lib/storage/quotation-photos.ts
-- [ ] T042 [US1] Implement receipt email invocation and failure capture in lib/email/quotation-receipt.ts
-- [ ] T043 [US1] Implement public landing content section in components/quotation/landing-guidance.tsx
-- [ ] T044 [US1] Implement quotation request form component in components/quotation/quotation-form.tsx
-- [ ] T045 [US1] Implement confirmation card component in components/quotation/confirmation-card.tsx
-- [ ] T046 [US1] Compose public landing page with guidance and embedded form in app/(public)/page.tsx
-- [ ] T047 [US1] Implement file input preview and limit messaging in components/quotation/photo-upload-field.tsx
-- [ ] T048 [US1] Wire LGPD consent copy and privacy link into components/quotation/quotation-form.tsx
-- [ ] T049 [US1] Implement repeat-submission retry message in app/actions/quotation.ts
-- [ ] T050 [US1] Seed sample public form option constants in lib/quotation/options.ts
+- [X] T039 [US1] Implement submitQuotationRequest Server Action in app/actions/quotation.ts
+- [X] T040 [US1] Implement request creation repository functions in lib/quotation/requests.ts
+- [X] T041 [US1] Implement photo upload orchestration in lib/storage/quotation-photos.ts
+- [X] T042 [US1] Implement receipt email invocation and failure capture in lib/email/quotation-receipt.ts
+- [X] T043 [US1] Implement public landing content section in components/quotation/landing-guidance.tsx
+- [X] T044 [US1] Implement quotation request form component in components/quotation/quotation-form.tsx
+- [X] T045 [US1] Implement confirmation card component in components/quotation/confirmation-card.tsx
+- [X] T046 [US1] Compose public landing page with guidance and embedded form in app/(public)/page.tsx
+- [X] T047 [US1] Implement file input preview and limit messaging in components/quotation/photo-upload-field.tsx
+- [X] T048 [US1] Wire LGPD consent copy and privacy link into components/quotation/quotation-form.tsx
+- [X] T049 [US1] Implement repeat-submission retry message in app/actions/quotation.ts
+- [X] T050 [US1] Seed sample public form option constants in lib/quotation/options.ts
 
 **Checkpoint**: US1 is fully functional and testable independently as the MVP.
 
@@ -106,30 +106,30 @@
 
 ### Tests for User Story 2
 
-- [ ] T051 [P] [US2] Add integration tests for admin sign-in authorization in tests/integration/admin-auth.test.ts
-- [ ] T052 [P] [US2] Add integration tests for admin request list filters and pagination in tests/integration/admin-request-list.test.ts
-- [ ] T053 [P] [US2] Add integration tests for stale status update rejection in tests/integration/status-concurrency.test.ts
-- [ ] T054 [P] [US2] Add integration tests for internal notes append-only behavior in tests/integration/internal-notes.test.ts
-- [ ] T055 [P] [US2] Add integration tests for personal data anonymization in tests/integration/anonymize-request.test.ts
-- [ ] T056 [P] [US2] Add Playwright E2E test for admin review flow in tests/e2e/admin-review.spec.ts
-- [ ] T057 [P] [US2] Add Playwright E2E test for stale status refresh prompt in tests/e2e/admin-status-conflict.spec.ts
+- [X] T051 [P] [US2] Add integration tests for admin sign-in authorization in tests/integration/admin-auth.test.ts
+- [X] T052 [P] [US2] Add integration tests for admin request list filters and pagination in tests/integration/admin-request-list.test.ts
+- [X] T053 [P] [US2] Add integration tests for stale status update rejection in tests/integration/status-concurrency.test.ts
+- [X] T054 [P] [US2] Add integration tests for internal notes append-only behavior in tests/integration/internal-notes.test.ts
+- [X] T055 [P] [US2] Add integration tests for personal data anonymization in tests/integration/anonymize-request.test.ts
+- [X] T056 [P] [US2] Add Playwright E2E test for admin review flow in tests/e2e/admin-review.spec.ts
+- [X] T057 [P] [US2] Add Playwright E2E test for stale status refresh prompt in tests/e2e/admin-status-conflict.spec.ts
 
 ### Implementation for User Story 2
 
-- [ ] T058 [US2] Implement signInAdmin Server Action in app/actions/admin-auth.ts
-- [ ] T059 [US2] Implement admin login page in app/admin/login/page.tsx
-- [ ] T060 [US2] Implement admin request query functions with filters and pagination in lib/admin/request-queries.ts
-- [ ] T061 [US2] Implement updateRequestStatus Server Action with concurrency marker in app/actions/admin-requests.ts
-- [ ] T062 [US2] Implement addInternalNote Server Action in app/actions/admin-requests.ts
-- [ ] T063 [US2] Implement anonymizeQuotationPersonalData Server Action in app/actions/admin-requests.ts
-- [ ] T064 [US2] Implement admin request list table/card component in components/admin/request-list.tsx
-- [ ] T065 [US2] Implement admin request filters component in components/admin/request-filters.tsx
-- [ ] T066 [US2] Implement admin request list route in app/admin/requests/page.tsx
-- [ ] T067 [US2] Implement admin request detail layout in app/admin/requests/[id]/page.tsx
-- [ ] T068 [US2] Implement request detail sections in components/admin/request-detail.tsx
-- [ ] T069 [US2] Implement internal notes panel in components/admin/internal-notes.tsx
-- [ ] T070 [US2] Implement privacy deletion panel in components/admin/privacy-anonymization.tsx
-- [ ] T071 [US2] Implement receipt failure indicator in components/admin/receipt-status.tsx
+- [X] T058 [US2] Implement signInAdmin Server Action in app/actions/admin-auth.ts
+- [X] T059 [US2] Implement admin login page in app/admin/login/page.tsx
+- [X] T060 [US2] Implement admin request query functions with filters and pagination in lib/admin/request-queries.ts
+- [X] T061 [US2] Implement updateRequestStatus Server Action with concurrency marker in app/actions/admin-requests.ts
+- [X] T062 [US2] Implement addInternalNote Server Action in app/actions/admin-requests.ts
+- [X] T063 [US2] Implement anonymizeQuotationPersonalData Server Action in app/actions/admin-requests.ts
+- [X] T064 [US2] Implement admin request list table/card component in components/admin/request-list.tsx
+- [X] T065 [US2] Implement admin request filters component in components/admin/request-filters.tsx
+- [X] T066 [US2] Implement admin request list route in app/admin/requests/page.tsx
+- [X] T067 [US2] Implement admin request detail layout in app/admin/requests/[id]/page.tsx
+- [X] T068 [US2] Implement request detail sections in components/admin/request-detail.tsx
+- [X] T069 [US2] Implement internal notes panel in components/admin/internal-notes.tsx
+- [X] T070 [US2] Implement privacy deletion panel in components/admin/privacy-anonymization.tsx
+- [X] T071 [US2] Implement receipt failure indicator in components/admin/receipt-status.tsx
 
 **Checkpoint**: US2 is functional independently after US1 provides request data.
 
@@ -143,17 +143,17 @@
 
 ### Tests for User Story 3
 
-- [ ] T072 [P] [US3] Add unit tests for reply template generation in tests/unit/reply-templates.test.ts
-- [ ] T073 [P] [US3] Add integration tests for reply action data derivation in tests/integration/reply-actions.test.ts
-- [ ] T074 [P] [US3] Add Playwright E2E test for admin reply buttons in tests/e2e/admin-reply-actions.spec.ts
+- [X] T072 [P] [US3] Add unit tests for reply template generation in tests/unit/reply-templates.test.ts
+- [X] T073 [P] [US3] Add integration tests for reply action data derivation in tests/integration/reply-actions.test.ts
+- [X] T074 [P] [US3] Add Playwright E2E test for admin reply buttons in tests/e2e/admin-reply-actions.spec.ts
 
 ### Implementation for User Story 3
 
-- [ ] T075 [US3] Implement email and WhatsApp reply template helpers in lib/admin/reply-templates.ts
-- [ ] T076 [US3] Implement reply action derivation in lib/admin/reply-actions.ts
-- [ ] T077 [US3] Implement reply actions component in components/admin/reply-actions.tsx
-- [ ] T078 [US3] Integrate reply actions into request detail page in app/admin/requests/[id]/page.tsx
-- [ ] T079 [US3] Mark preferred contact channel in reply UI in components/admin/reply-actions.tsx
+- [X] T075 [US3] Implement email and WhatsApp reply template helpers in lib/admin/reply-templates.ts
+- [X] T076 [US3] Implement reply action derivation in lib/admin/reply-actions.ts
+- [X] T077 [US3] Implement reply actions component in components/admin/reply-actions.tsx
+- [X] T078 [US3] Integrate reply actions into request detail page in app/admin/requests/[id]/page.tsx
+- [X] T079 [US3] Mark preferred contact channel in reply UI in components/admin/reply-actions.tsx
 
 **Checkpoint**: US3 works from request detail without changing request status automatically.
 
@@ -167,17 +167,17 @@
 
 ### Tests for User Story 4
 
-- [ ] T080 [P] [US4] Add Playwright E2E test for privacy page content in tests/e2e/privacy-page.spec.ts
-- [ ] T081 [P] [US4] Add Playwright E2E test for contact page content in tests/e2e/contact-page.spec.ts
+- [X] T080 [P] [US4] Add Playwright E2E test for privacy page content in tests/e2e/privacy-page.spec.ts
+- [X] T081 [P] [US4] Add Playwright E2E test for contact page content in tests/e2e/contact-page.spec.ts
 
 ### Implementation for User Story 4
 
-- [ ] T082 [US4] Implement privacy page content in app/(public)/privacidade/page.tsx
-- [ ] T083 [US4] Implement contact page content in app/(public)/contato/page.tsx
-- [ ] T084 [US4] Create static content constants in lib/content/static-pages.ts
-- [ ] T085 [US4] Add privacy and contact navigation links in app/layout.tsx
-- [ ] T086 [US4] Add privacy policy link from quotation form in components/quotation/quotation-form.tsx
-- [ ] T087 [US4] Add optional map placeholder section in app/(public)/contato/page.tsx
+- [X] T082 [US4] Implement privacy page content in app/(public)/privacidade/page.tsx
+- [X] T083 [US4] Implement contact page content in app/(public)/contato/page.tsx
+- [X] T084 [US4] Create static content constants in lib/content/static-pages.ts
+- [X] T085 [US4] Add privacy and contact navigation links in app/layout.tsx
+- [X] T086 [US4] Add privacy policy link from quotation form in components/quotation/quotation-form.tsx
+- [X] T087 [US4] Add optional map placeholder section in app/(public)/contato/page.tsx
 
 **Checkpoint**: US4 provides launch-required compliance and contact routes.
 
@@ -187,13 +187,13 @@
 
 **Purpose**: Validate launch readiness across stories and clean up shared documentation and quality gates.
 
-- [ ] T088 [P] Update README setup and feature overview in README.md
-- [ ] T089 [P] Document environment variables and deployment notes in .env.example
-- [ ] T090 [P] Add quickstart validation notes to specs/001-orcaflex-v1/quickstart.md
-- [ ] T091 Run unit and integration test suite and record fixes in tests/
-- [ ] T092 Run Playwright E2E suite and record fixes in tests/e2e/
-- [ ] T093 Run Lighthouse check for public pages and record results in specs/001-orcaflex-v1/lighthouse-notes.md
-- [ ] T094 Verify Constitution Check coverage against specs/001-orcaflex-v1/plan.md
+- [X] T088 [P] Update README setup and feature overview in README.md
+- [X] T089 [P] Document environment variables and deployment notes in .env.example
+- [X] T090 [P] Add quickstart validation notes to specs/001-orcaflex-v1/quickstart.md
+- [X] T091 Run unit and integration test suite and record fixes in tests/
+- [X] T092 Run Playwright E2E suite and record fixes in tests/e2e/
+- [X] T093 Run Lighthouse check for public pages and record results in specs/001-orcaflex-v1/lighthouse-notes.md
+- [X] T094 Verify Constitution Check coverage against specs/001-orcaflex-v1/plan.md
 
 ---
 

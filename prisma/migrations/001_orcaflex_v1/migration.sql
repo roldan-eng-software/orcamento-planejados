@@ -1,0 +1,2 @@
+-- Initial OrcaFlex V1 schema. Apply with Prisma migrate dev/deploy.
+-- Prisma will generate provider-specific SQL from prisma/schema.prisma.
