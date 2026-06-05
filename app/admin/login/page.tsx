@@ -1,6 +1,13 @@
+import { redirect } from "next/navigation";
 import { signInAdmin } from "@/app/actions/admin-auth";
+import { getAdminSession } from "@/lib/auth/session";
 
-export default function AdminLoginPage() {
+export const dynamic = "force-dynamic";
+
+export default async function AdminLoginPage() {
+  const session = await getAdminSession();
+  if (session) redirect("/admin/requests");
+
   return (
     <main className="mx-auto grid min-h-[70vh] max-w-md place-items-center px-4">
       <form action={signInAdmin} className="grid w-full gap-4 rounded-md border border-[var(--line)] bg-white p-6">

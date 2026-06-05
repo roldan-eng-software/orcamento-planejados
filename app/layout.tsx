@@ -21,7 +21,7 @@ export default function RootLayout({
             <div className="flex items-center gap-4 text-sm text-slate-700">
               <Link href="/privacidade">Privacidade</Link>
               <Link href="/contato">Contato</Link>
-              <Link className="font-semibold text-[var(--brand)]" href="/admin/requests">
+              <Link className="font-semibold text-[var(--brand)]" href="/admin/login">
                 Admin
               </Link>
             </div>

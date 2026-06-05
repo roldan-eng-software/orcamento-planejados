@@ -4,7 +4,11 @@ import { isAdminRole } from "./roles";
 
 export async function getAdminSession() {
   const supabase = await createServerSupabaseClient();
-  const { data } = await supabase.auth.getUser();
+  const { data, error } = await supabase.auth.getUser();
+  if (error) {
+    return null;
+  }
+
   const user = data.user;
   const role = user?.app_metadata?.role as string | undefined;
 
