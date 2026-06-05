@@ -13,7 +13,7 @@
     "test:e2e": "playwright test",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
-    "admin:create": "node scripts/create-admin.js"
+    "admin:create": "node scripts/create-admin.mjs"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
@@ -26,7 +26,6 @@
     "pg": "^8.21.0",
     "react": "latest",
     "react-dom": "latest",
-    "resend": "latest",
     "zod": "latest"
   },
   "devDependencies": {
@@ -35,6 +34,7 @@
     "@tailwindcss/postcss": "latest",
     "@testing-library/jest-dom": "^6.9.1",
     "@types/node": "latest",
+    "@types/nodemailer": "^8.0.0",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@vitejs/plugin-react": "latest",

@@ -1,6 +1,6 @@
-const { PrismaClient } = require("@prisma/client");
-const { PrismaPg } = require("@prisma/adapter-pg");
-const { createClient } = require("@supabase/supabase-js");
+import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { createClient } from "@supabase/supabase-js";
 
 const requiredEnv = [
   "NEXT_PUBLIC_SUPABASE_URL",

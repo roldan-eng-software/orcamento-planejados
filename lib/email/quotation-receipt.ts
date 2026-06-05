@@ -1,12 +1,21 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
-let resendClient: Resend | null = null;
+let transporter: nodemailer.Transporter | null = null;
 
-function getResend() {
-  if (!resendClient) {
-    resendClient = new Resend(process.env.RESEND_API_KEY ?? "re_missing");
+function getTransporter() {
+  if (!transporter) {
+    transporter = nodemailer.createTransport({
+      service: process.env.SMTP_SERVICE || "gmail",
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : undefined,
+      secure: process.env.SMTP_SECURE === "true",
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
+      },
+    });
   }
-  return resendClient;
+  return transporter;
 }
 
 export type ReceiptResult =
@@ -18,20 +27,18 @@ export async function sendQuotationReceipt(params: {
   name: string;
   protocol: string;
 }): Promise<ReceiptResult> {
-  if (!process.env.RESEND_API_KEY) {
-    return { status: "FAILED", failureReason: "RESEND_API_KEY não configurada." };
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASSWORD || !process.env.SMTP_FROM_EMAIL) {
+    return { status: "FAILED", failureReason: "Configuração SMTP incompleta." };
   }
 
   try {
-    const resend = getResend();
-    const { error } = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL ?? "Roldan Marcenaria <roldan.marcenaria@gmail.com>",
+    await getTransporter().sendMail({
+      from: process.env.SMTP_FROM_EMAIL,
       to: params.to,
       subject: `Recebemos seu pedido ${params.protocol}`,
       text: `Olá, ${params.name}. Recebemos seu pedido de orçamento ${params.protocol}. Em breve entraremos em contato.`,
     });
 
-    if (error) return { status: "FAILED", failureReason: error.message };
     return { status: "SENT" };
   } catch (error) {
     return {

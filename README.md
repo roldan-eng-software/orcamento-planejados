@@ -15,7 +15,7 @@ npm run dev
 ```
 
 Copie `.env.example` para `.env.local` e preencha as variaveis de Supabase,
-Postgres e Resend antes de testar submissao real de pedidos.
+Postgres e SMTP antes de testar submissao real de pedidos.
 
 ## Validacao
 

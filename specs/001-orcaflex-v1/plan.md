@@ -19,7 +19,7 @@ and e-commerce versions.
 **Language/Version**: TypeScript with Next.js 15 App Router
 
 **Primary Dependencies**: Next.js, React, Tailwind CSS, Supabase Auth/Storage,
-Prisma ORM, Zod, Resend via Supabase Edge Function, Playwright/Vitest-compatible
+Prisma ORM, Zod, Nodemailer SMTP, Playwright/Vitest-compatible
 test stack
 
 **Storage**: Supabase Postgres through Prisma for relational data; Supabase

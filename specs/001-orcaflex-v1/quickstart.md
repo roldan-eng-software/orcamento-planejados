@@ -3,19 +3,19 @@
 ## Prerequisites
 
 - Node.js compatible with the selected Next.js version
-- Supabase project with Postgres, Auth, Storage, and Edge Functions available
-- Resend API key for the receipt email function
+- Supabase project with Postgres, Auth, and Storage available
+- SMTP account credentials for the receipt email function
 - Environment variables copied from `.env.example` and filled locally
 
 ## Setup
 
 1. Install dependencies.
 2. Configure environment variables for database, Supabase, storage bucket,
-   Supabase Auth, and Resend.
+   Supabase Auth, and SMTP.
 3. Apply Prisma migrations.
 4. Create or invite the V1 admin user with the `ADMIN` role.
 5. Create the storage bucket for quotation photos.
-6. Deploy or run the receipt email function in the configured Supabase project.
+6. Configure SMTP credentials in the deployment environment.
 7. Start the local application.
 
 ## Validation Scenarios
