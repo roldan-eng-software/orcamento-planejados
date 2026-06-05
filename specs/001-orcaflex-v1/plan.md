@@ -12,7 +12,11 @@ customers through a structured quotation form, creates a protocol, stores
 optional photos, and attempts an automatic receipt. The protected admin area
 lets one workshop owner review, filter, update, annotate, and manually reply to
 requests while preserving forward-compatible data for later automated pricing
-and e-commerce versions.
+and e-commerce versions. The public homepage also shows a floating
+service-scope alert before interaction so visitors acknowledge that the workshop
+only accepts new, custom, medium/high-standard planned furniture requests and
+does not accept reforms, repairs, loose MDF pieces, low-quality MDF, solid-wood
+services, or internet-purchased furniture installation.
 
 ## Technical Context
 
@@ -43,7 +47,9 @@ successful processing; admin can find a known request in under 30 seconds with
 **Constraints**: Manual quotation only in V1; no customer accounts, automated
 pricing, multi-tenant admin, checkout, CNC output, native mobile app, Redux, or
 Zustand; customer form submission uses a Server Action, not a separate REST
-endpoint; database changes begin with Prisma migrations
+endpoint; database changes begin with Prisma migrations; homepage
+service-scope notice is non-persisted UI state and does not introduce cookies,
+localStorage, database tables, or new API endpoints
 
 **Scale/Scope**: One workshop/admin for V1, anonymous customer submissions,
 request list paginated at 20 items per page, max 3 images per request, max
@@ -71,14 +77,20 @@ request list paginated at 20 items per page, max 3 images per request, max
   fields are nullable forward-compatible fields only.
 - **Mobile and Market Fit**: PASS. Customer flow is mobile-first and follows
   Brazilian Portuguese, BRL, `DD/MM/YYYY`, Brazilian phone, and LGPD rules.
+- **Lead Qualification UX**: PASS. The homepage notice uses Brazilian
+  Portuguese copy, appears before form interaction, and closes with an explicit
+  acknowledgement button without collecting personal data.
 - **Performance and Simplicity**: PASS. Single Next.js app, minimal dependency
   set, optimized image handling, and V1 Lighthouse targets are preserved.
 - **Testing Gate**: PASS. Required unit, integration, and E2E coverage is called
   out for validation, Server Actions, admin auth, quote submission, deletion,
-  throttling, confirmation failure, and stale status updates.
+  throttling, confirmation failure, stale status updates, and the homepage
+  service-scope notice.
 
-**Post-Design Re-check**: PASS. Phase 1 artifacts preserve all gates; no
-constitutional deviations require Complexity Tracking entries.
+**Post-Design Re-check**: PASS. Phase 1 artifacts preserve all gates; the
+service-scope notice adds only client-side UI state, no persistence, no new API
+surface, and no constitutional deviations requiring Complexity Tracking
+entries.
 
 ## Project Structure
 

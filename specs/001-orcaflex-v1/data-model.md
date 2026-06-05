@@ -183,3 +183,31 @@ Represents static content for required V1 pages.
 - Privacy content must describe data collection, consent, quotation use,
   deletion requests, and contact method for privacy requests.
 - Contact content must include address, phone, and email; map embed is optional.
+
+## ServiceScopeNotice
+
+Represents homepage-only alert content shown before visitors interact with the
+quotation page. This is not a persisted database entity in V1.
+
+### Fields
+
+- `body`: required Brazilian Portuguese service-scope copy explaining accepted
+  and rejected request types
+- `acknowledgementLabel`: exact button label, "Entendo o que não pedir"
+- `isOpen`: transient client-side UI state for the current page session
+
+### Relationships
+
+- Rendered by the public homepage before the quotation form can be used
+- Does not relate to `QuotationRequest` and does not create audit or consent
+  records
+
+### Validation Rules
+
+- Copy must state that the workshop acts exclusively with new, personalized,
+  medium/high-standard planned furniture.
+- Copy must state that reforms, repairs, old-furniture maintenance, board
+  cuts, loose MDF pieces, solid-wood services, low-quality MDF, and
+  internet-purchased furniture installation are not performed.
+- The acknowledgement button must close the alert without navigating away from
+  `/`.

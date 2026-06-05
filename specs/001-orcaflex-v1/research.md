@@ -122,3 +122,24 @@ Server Actions, Zod, Prisma, Supabase, and the test stack are sufficient for V1.
 - Zustand/Redux: rejected explicitly by the spec.
 - Separate backend service: rejected because V1 must remain a single deployable
   application.
+
+## Decision: Implement the homepage service-scope notice as non-persisted client UI state
+
+**Rationale**: The notice is a lead-qualification interaction that only needs
+to appear in front of the homepage and close after the visitor clicks the
+acknowledgement button. A small client component using React state is enough,
+keeps V1 within the approved stack, and avoids storing acknowledgement data in
+cookies, localStorage, or the database. This also avoids introducing personal
+data collection or a new Server Action/API endpoint for a purely presentational
+alert.
+
+**Alternatives considered**:
+
+- Persist acknowledgement in localStorage or cookies: rejected because the
+  request only requires the alert to close after clicking and persistence would
+  add tracking/state with no V1 operational need.
+- Persist acknowledgement in the database: rejected because visitors are
+  anonymous and the alert does not create a business record.
+- Use a browser `alert()`: rejected because it is not stylable, provides poor
+  accessibility/control, and cannot present the required content with the
+  product's visual language.

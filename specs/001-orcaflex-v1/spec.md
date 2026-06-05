@@ -135,6 +135,33 @@ and verify that each route loads useful static content.
    contact page, **Then** they see the workshop address, phone, email, and a map
    area if available.
 
+---
+
+### User Story 5 - Visitor acknowledges service-scope notice (Priority: P1)
+
+An anonymous visitor opens the public homepage and sees a floating alert before
+interacting with the page. The alert clearly explains that the workshop only
+serves new, custom, medium/high-standard planned furniture and lists the
+categories of requests that are not accepted.
+
+**Why this priority**: This qualifies leads before the customer spends time in
+the form, reducing unsuitable requests for reforms, repairs, loose MDF pieces,
+and installation services outside OrcaFlex V1 scope.
+
+**Independent Test**: A tester opens `/`, verifies the alert is visible above
+the homepage content with the required text, clicks "Entendo o que não pedir",
+and verifies the alert closes while the homepage remains available.
+
+**Acceptance Scenarios**:
+
+1. **Given** a visitor opens the homepage, **When** the page renders, **Then**
+   a floating alert appears in front of the homepage before normal interaction.
+2. **Given** the alert is visible, **When** the visitor reads it, **Then** it
+   shows the exact service-scope copy in Brazilian Portuguese.
+3. **Given** the alert is visible, **When** the visitor clicks "Entendo o que
+   não pedir", **Then** the alert closes and the visitor can use the homepage
+   and quotation form normally.
+
 ### Edge Cases
 
 - A customer chooses "Outro" as furniture type; the system requires a free-text
@@ -167,6 +194,9 @@ and verify that each route loads useful static content.
 - Two admin sessions attempt to change the same request status; the system
   detects stale status updates and asks the admin to refresh before saving,
   preventing silent overwrites.
+- A visitor lands on the homepage using a small mobile viewport; the
+  service-scope alert remains readable, keeps the acknowledgement button
+  visible, and does not require horizontal scrolling.
 
 ### Compliance and Market Notes *(mandatory)*
 
@@ -260,6 +290,17 @@ and verify that each route loads useful static content.
 - **FR-027**: The system MUST limit repeated quotation submissions from the same
   email address or WhatsApp number within a 10-minute window and show a clear
   retry message.
+- **FR-028**: The public homepage MUST show a floating alert in front of the
+  homepage content when a visitor enters the site.
+- **FR-029**: The service-scope alert MUST include the following copy:
+  "Atuamos exclusivamente com móveis planejados novos, personalizados e de
+  médio e alto padrão.
+
+  Não realizamos reformas, consertos, manutenção de móveis antigos, cortes de
+  chapa, peças avulsas de MDF, serviços em madeira maciça, uso de MDF de baixa
+  qualidade ou instalação de móveis adquiridos pela internet."
+- **FR-030**: The service-scope alert MUST provide a button labeled "Entendo o
+  que não pedir" and MUST close the alert when the button is clicked.
 
 ### Constitutional Requirements *(mandatory)*
 
@@ -297,6 +338,8 @@ and verify that each route loads useful static content.
   derived from the customer's contact data and request protocol.
 - **StaticPageContent**: Privacy and contact content needed to support legal
   transparency and direct customer communication.
+- **ServiceScopeNotice**: Non-persisted homepage UI content that describes what
+  customers should and should not request before using the quotation form.
 
 ## Success Criteria *(mandatory)*
 
@@ -328,6 +371,9 @@ and verify that each route loads useful static content.
   status.
 - **SC-012**: 100% of repeated submissions from the same email or WhatsApp
   within 10 minutes are blocked with a clear retry message in validation tests.
+- **SC-013**: 100% of homepage entry tests show the service-scope alert before
+  form interaction and allow it to close through the "Entendo o que não pedir"
+  button without navigating away.
 
 ## Assumptions
 

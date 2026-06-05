@@ -32,11 +32,17 @@ npm run test:e2e
 ### 1. Customer submits a valid request
 
 1. Open `/` on a mobile-width viewport.
-2. Read the service summary and checklist.
-3. Fill all required form fields, accept LGPD consent, and submit.
-4. Confirm the form is replaced by a confirmation card on the same page.
-5. Confirm the protocol matches `ORC-YYYYMMDD-XXXX`.
-6. Confirm the request appears in the admin request list.
+2. Confirm the service-scope alert appears in front of the homepage.
+3. Confirm the alert includes the required copy about accepted planned
+   furniture requests and rejected reform/repair/MDF-piece/installation
+   requests.
+4. Click "Entendo o que não pedir" and confirm the alert closes without
+   leaving `/`.
+5. Read the service summary and checklist.
+6. Fill all required form fields, accept LGPD consent, and submit.
+7. Confirm the form is replaced by a confirmation card on the same page.
+8. Confirm the protocol matches `ORC-YYYYMMDD-XXXX`.
+9. Confirm the request appears in the admin request list.
 
 Expected outcome: The request is stored, the protocol is visible, and no
 customer account is required.

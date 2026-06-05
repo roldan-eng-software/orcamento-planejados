@@ -4,14 +4,14 @@
 
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/, quickstart.md
 
-**Tests**: Required by the constitution and feature specification for validation, Server Actions, admin authorization, quote submission, deletion anonymization, throttling, receipt failures, stale status updates, and key E2E flows.
+**Tests**: Required by the constitution and feature specification for validation, Server Actions, admin authorization, quote submission, deletion anonymization, throttling, receipt failures, stale status updates, homepage service-scope notice, and key E2E flows.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
 ## Format: `[ID] [P?] [Story] Description`
 
 - **[P]**: Can run in parallel (different files, no dependencies)
-- **[Story]**: Which user story this task belongs to (US1, US2, US3, US4)
+- **[Story]**: Which user story this task belongs to (US1, US2, US3, US4, US5)
 - Include exact file paths in descriptions
 
 ## Phase 1: Setup (Shared Infrastructure)
@@ -98,7 +98,29 @@
 
 ---
 
-## Phase 4: User Story 2 - Admin reviews and manages requests (Priority: P2)
+## Phase 4: User Story 5 - Visitor acknowledges service-scope notice (Priority: P1)
+
+**Goal**: Anonymous visitors see a floating homepage alert that qualifies accepted and rejected service requests before using the quotation form, then close it with the acknowledgement button.
+
+**Independent Test**: Open `/`, verify the alert is visible above homepage content with the exact required Portuguese copy, click "Entendo o que não pedir", and verify the alert closes without navigating away.
+
+### Tests for User Story 5
+
+- [ ] T095 [P] [US5] Add Playwright E2E test for homepage notice appearance, required copy, and close behavior in tests/e2e/service-scope-notice.spec.ts
+- [ ] T096 [P] [US5] Add unit test for service-scope notice content constants and acknowledgement label in tests/unit/service-scope-notice-content.test.ts
+
+### Implementation for User Story 5
+
+- [ ] T097 [US5] Create service-scope notice content constants in lib/content/service-scope-notice.ts
+- [ ] T098 [US5] Implement accessible floating service-scope alert component with transient React state in components/quotation/service-scope-notice.tsx
+- [ ] T099 [US5] Integrate ServiceScopeNotice ahead of homepage guidance in app/(public)/page.tsx
+- [ ] T100 [US5] Verify mobile-safe alert sizing, readable text, visible acknowledgement button, and no horizontal overflow in components/quotation/service-scope-notice.tsx
+
+**Checkpoint**: US5 is independently testable from `/` without database, Server Action, cookie, or localStorage changes.
+
+---
+
+## Phase 5: User Story 2 - Admin reviews and manages requests (Priority: P2)
 
 **Goal**: The admin can sign in, view and filter requests, open details, update status, add private notes, see failed receipt status, and handle privacy anonymization.
 
@@ -135,7 +157,7 @@
 
 ---
 
-## Phase 5: User Story 3 - Admin replies through customer channel (Priority: P3)
+## Phase 6: User Story 3 - Admin replies through customer channel (Priority: P3)
 
 **Goal**: The admin can prepare email and WhatsApp replies from a request detail using customer contact data and protocol-aware message templates.
 
@@ -159,7 +181,7 @@
 
 ---
 
-## Phase 6: User Story 4 - Visitor accesses required static pages (Priority: P4)
+## Phase 7: User Story 4 - Visitor accesses required static pages (Priority: P4)
 
 **Goal**: Visitors can access LGPD-oriented privacy content and workshop contact information from static routes.
 
@@ -183,7 +205,7 @@
 
 ---
 
-## Phase 7: Polish & Cross-Cutting Concerns
+## Phase 8: Polish & Cross-Cutting Concerns
 
 **Purpose**: Validate launch readiness across stories and clean up shared documentation and quality gates.
 
@@ -194,6 +216,7 @@
 - [X] T092 Run Playwright E2E suite and record fixes in tests/e2e/
 - [X] T093 Run Lighthouse check for public pages and record results in specs/001-orcaflex-v1/lighthouse-notes.md
 - [X] T094 Verify Constitution Check coverage against specs/001-orcaflex-v1/plan.md
+- [ ] T101 Run service-scope notice focused checks and record any fixes in tests/e2e/service-scope-notice.spec.ts and tests/unit/service-scope-notice-content.test.ts
 
 ---
 
@@ -204,14 +227,16 @@
 - **Setup (Phase 1)**: No dependencies.
 - **Foundational (Phase 2)**: Depends on Setup completion and blocks all user stories.
 - **US1 Customer submission (Phase 3)**: Depends on Foundational. This is the MVP.
-- **US2 Admin management (Phase 4)**: Depends on Foundational and needs at least one request from US1 for end-to-end validation.
-- **US3 Reply actions (Phase 5)**: Depends on US2 request detail.
-- **US4 Static pages (Phase 6)**: Depends on Setup and can run after Foundational; privacy link integration touches US1 form.
-- **Polish (Phase 7)**: Depends on selected user stories being complete.
+- **US5 Service-scope notice (Phase 4)**: Depends on Setup and public page structure from US1; no database, Server Action, or auth dependency.
+- **US2 Admin management (Phase 5)**: Depends on Foundational and needs at least one request from US1 for end-to-end validation.
+- **US3 Reply actions (Phase 6)**: Depends on US2 request detail.
+- **US4 Static pages (Phase 7)**: Depends on Setup and can run after Foundational; privacy link integration touches US1 form.
+- **Polish (Phase 8)**: Depends on selected user stories being complete.
 
 ### User Story Dependencies
 
 - **US1 (P1)**: Independent MVP after Foundation.
+- **US5 (P1)**: Independent homepage qualification layer after public page composition exists; can be validated without backend state.
 - **US2 (P2)**: Operationally depends on request data from US1 but can be developed with seeded data after Foundation.
 - **US3 (P3)**: Depends on US2 detail page and request contact data.
 - **US4 (P4)**: Mostly independent; one task integrates the privacy link into the US1 form.
@@ -230,6 +255,7 @@
 - Setup tasks T007-T010 can run in parallel after T001-T006 are underway.
 - Foundational helpers T013-T015 and T018-T021 can run in parallel after T011.
 - US1 test tasks T031-T038 can run in parallel.
+- US5 test tasks T095-T096 can run in parallel before implementing the content/component files.
 - US2 test tasks T051-T057 can run in parallel.
 - US3 test tasks T072-T074 can run in parallel.
 - US4 test tasks T080-T081 can run in parallel.
@@ -250,6 +276,14 @@ Task: "T037 [P] [US1] Add Playwright E2E test for public quote submission in tes
 Task: "T043 [US1] Implement public landing content section in components/quotation/landing-guidance.tsx"
 Task: "T045 [US1] Implement confirmation card component in components/quotation/confirmation-card.tsx"
 Task: "T047 [US1] Implement file input preview and limit messaging in components/quotation/photo-upload-field.tsx"
+```
+
+## Parallel Example: User Story 5
+
+```bash
+Task: "T095 [P] [US5] Add Playwright E2E test for homepage notice appearance, required copy, and close behavior in tests/e2e/service-scope-notice.spec.ts"
+Task: "T096 [P] [US5] Add unit test for service-scope notice content constants and acknowledgement label in tests/unit/service-scope-notice-content.test.ts"
+Task: "T097 [US5] Create service-scope notice content constants in lib/content/service-scope-notice.ts"
 ```
 
 ## Parallel Example: User Story 2
@@ -293,24 +327,27 @@ Task: "T084 [US4] Create static content constants in lib/content/static-pages.ts
 1. Complete Phase 1: Setup.
 2. Complete Phase 2: Foundational.
 3. Complete Phase 3: Customer submits quotation request.
-4. Validate `/` with unit, integration, and E2E tests.
-5. Demo lead capture with protocol confirmation.
+4. Complete Phase 4: Visitor acknowledges service-scope notice.
+5. Validate `/` with unit, integration, and E2E tests.
+6. Demo lead capture with protocol confirmation and service-scope acknowledgement.
 
 ### Incremental Delivery
 
 1. Foundation ready.
 2. Add US1 customer submission and deploy/demo MVP.
-3. Add US2 admin management and privacy operations.
-4. Add US3 reply actions.
-5. Add US4 static pages and final launch compliance.
-6. Run polish checks and quickstart validation.
+3. Add US5 service-scope notice to qualify homepage visitors before form use.
+4. Add US2 admin management and privacy operations.
+5. Add US3 reply actions.
+6. Add US4 static pages and final launch compliance.
+7. Run polish checks and quickstart validation.
 
 ### Team Parallel Strategy
 
 1. One developer owns schema/auth/foundation.
 2. One developer writes US1 tests and public form UI.
-3. One developer prepares admin query/action tests for US2.
-4. Once foundation is merged, story work proceeds independently by file area.
+3. One developer writes US5 notice tests/content/component files.
+4. One developer prepares admin query/action tests for US2.
+5. Once foundation is merged, story work proceeds independently by file area.
 
 ---
 

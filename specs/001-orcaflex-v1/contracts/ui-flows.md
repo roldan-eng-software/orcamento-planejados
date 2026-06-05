@@ -4,6 +4,23 @@
 
 **Route**: `/`
 
+### Entry Notice
+
+- On homepage entry, a floating alert appears in front of the homepage content.
+- The alert copy is:
+  "Atuamos exclusivamente com móveis planejados novos, personalizados e de
+  médio e alto padrão.
+
+  Não realizamos reformas, consertos, manutenção de móveis antigos, cortes de
+  chapa, peças avulsas de MDF, serviços em madeira maciça, uso de MDF de baixa
+  qualidade ou instalação de móveis adquiridos pela internet."
+- The alert includes one primary button labeled "Entendo o que não pedir".
+- Clicking the button closes the alert and leaves the visitor on `/`.
+- The alert uses transient client-side state only; it does not call a Server
+  Action, create a database record, set cookies, or write localStorage.
+- On mobile viewports, the alert remains readable and the acknowledgement
+  button remains visible without horizontal scrolling.
+
 ### Required Sections
 
 1. Service summary for planned furniture
