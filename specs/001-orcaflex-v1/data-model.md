@@ -25,6 +25,11 @@ Represents one customer quotation request and is the primary admin work item.
 - `hardwarePreferences`: zero or more hardware preference values
 - `additionalDescription`: optional text, max 1000 characters
 - `budgetRange`: optional enum matching the V1 ranges
+- `wantsTechnical3DProject`: boolean, defaults to false
+- `technical3DProjectFeeCents`: nullable integer set to `10000` when
+  `wantsTechnical3DProject` is true
+- `wantsTechnicalVisit`: boolean, defaults to false and allowed only when
+  `wantsTechnical3DProject` is true
 - `status`: enum `NOVO`, `EM_ANALISE`, `ORCADO`, `ENCERRADO`
 - `statusVersion`: integer incremented on each status change
 - `statusUpdatedAt`: timestamp of the latest status change
@@ -56,6 +61,9 @@ Represents one customer quotation request and is the primary admin work item.
 - Width, height, and depth must be positive centimeter values.
 - `otherFurnitureType` is required only when `furnitureType` is `OUTRO`.
 - At least one desired finish must be selected.
+- `wantsTechnicalVisit` must be false unless `wantsTechnical3DProject` is true.
+- When `wantsTechnical3DProject` is true, the UI must disclose the R$ 100,00
+  service fee and discount possibility before submission.
 - Consent must be accepted before creation.
 - `quotedValue` and `pricingBreakdown` remain nullable and unused in V1.
 

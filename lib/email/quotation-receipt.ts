@@ -26,17 +26,26 @@ export async function sendQuotationReceipt(params: {
   to: string;
   name: string;
   protocol: string;
+  wantsTechnical3DProject?: boolean;
+  wantsTechnicalVisit?: boolean;
 }): Promise<ReceiptResult> {
   if (!process.env.SMTP_USER || !process.env.SMTP_PASSWORD || !process.env.SMTP_FROM_EMAIL) {
     return { status: "FAILED", failureReason: "Configuração SMTP incompleta." };
   }
+
+  const technical3DText = params.wantsTechnical3DProject
+    ? " Você também solicitou o projeto 3D técnico, com custo de R$ 100,00 que poderá ser usado como desconto no fechamento do contrato de fabricação."
+    : "";
+  const technicalVisitText = params.wantsTechnicalVisit
+    ? " A visita técnica também foi marcada como interesse para nossa avaliação."
+    : "";
 
   try {
     await getTransporter().sendMail({
       from: process.env.SMTP_FROM_EMAIL,
       to: params.to,
       subject: `Recebemos seu pedido ${params.protocol}`,
-      text: `Olá, ${params.name}. Recebemos seu pedido de orçamento ${params.protocol}. Em breve entraremos em contato.`,
+      text: `Olá, ${params.name}. Recebemos seu pedido de orçamento ${params.protocol}. Em breve entraremos em contato.${technical3DText}${technicalVisitText}`,
     });
 
     return { status: "SENT" };

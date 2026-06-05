@@ -30,6 +30,19 @@ export const budgetRanges = [
   "Prefiro receber a sugestão",
 ] as const;
 
+export const technical3DProject = {
+  label: "Projeto 3D técnico",
+  feeCents: 10000,
+  feeLabel: "R$ 100,00",
+  notice:
+    "O projeto 3D técnico tem custo de R$ 100,00. Esse valor poderá ser usado como desconto no fechamento do contrato de fabricação do projeto.",
+} as const;
+
+export const technicalVisit = {
+  label: "Solicitar visita técnica",
+  disabledHelp: "A visita técnica só é permitida se contratar o projeto 3D técnico.",
+} as const;
+
 export const statusLabels = {
   NOVO: "Novo",
   EM_ANALISE: "Em análise",

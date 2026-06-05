@@ -64,6 +64,9 @@ model QuotationRequest {
   hardwarePreferences      String[]
   additionalDescription    String?
   budgetRange              String?
+  wantsTechnical3DProject  Boolean         @default(false)
+  technical3DProjectFeeCents Int?
+  wantsTechnicalVisit      Boolean         @default(false)
   status                   RequestStatus   @default(NOVO)
   statusVersion            Int             @default(1)
   statusUpdatedAt          DateTime        @default(now())

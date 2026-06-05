@@ -51,6 +51,8 @@ export async function submitQuotationRequest(
     to: parsed.data.email,
     name: parsed.data.fullName,
     protocol,
+    wantsTechnical3DProject: parsed.data.wantsTechnical3DProject,
+    wantsTechnicalVisit: parsed.data.wantsTechnicalVisit,
   });
 
   await createQuotationRequest({

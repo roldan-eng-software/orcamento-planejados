@@ -33,6 +33,16 @@
 - All customer-facing copy is Brazilian Portuguese.
 - The form stays on the same route before and after submission.
 - Required fields show field-level errors.
+- The form includes an optional "Projeto 3D técnico" control.
+- Selecting "Projeto 3D técnico" shows a notice that the technical 3D project
+  costs `R$ 100,00` and that the amount may be used as a discount if the
+  customer closes the fabrication contract.
+- The optional technical visit control remains disabled until "Projeto 3D
+  técnico" is selected.
+- When technical visit is disabled, hover and keyboard focus expose help text:
+  "A visita técnica só é permitida se contratar o projeto 3D técnico."
+- If "Projeto 3D técnico" is deselected after technical visit was selected, the
+  technical visit choice is cleared and disabled again.
 - The consent checkbox links to `/privacidade`.
 - The confirmation card includes the protocol number and receipt status copy.
 - Repeat-submission failures explain the 10-minute retry window.
@@ -86,11 +96,12 @@
 2. Customer contact data or anonymized marker
 3. Furniture details grouped like the public form
 4. Uploaded photo thumbnails and larger view
-5. Receipt confirmation status
-6. Status selector
-7. Internal notes
-8. Reply actions
-9. Privacy deletion action
+5. Technical 3D project and technical visit choices
+6. Receipt confirmation status
+7. Status selector
+8. Internal notes
+9. Reply actions
+10. Privacy deletion action
 
 ### Mutation Behavior
 

@@ -33,6 +33,17 @@ export function RequestDetail({ request }: { request: QuotationRequestWithRelati
         <p><strong>Acabamentos:</strong> {request.desiredFinishes.join(", ")}</p>
       </section>
 
+      <section className="grid gap-3 rounded-md border border-[var(--line)] bg-white p-5 md:grid-cols-2">
+        <h2 className="md:col-span-2 text-lg font-semibold">Projeto e visita técnica</h2>
+        <p>
+          <strong>Projeto 3D técnico:</strong>{" "}
+          {request.wantsTechnical3DProject ? "Solicitado (R$ 100,00)" : "Não solicitado"}
+        </p>
+        <p>
+          <strong>Visita técnica:</strong> {request.wantsTechnicalVisit ? "Solicitada" : "Não solicitada"}
+        </p>
+      </section>
+
       <section className="rounded-md border border-[var(--line)] bg-white p-5">
         <h2 className="text-lg font-semibold">Atualizar status</h2>
         <form action={updateRequestStatus} className="mt-3 flex flex-wrap gap-3">

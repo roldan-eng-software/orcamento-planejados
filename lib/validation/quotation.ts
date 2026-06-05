@@ -33,6 +33,8 @@ export const quotationFormSchema = z
     hardwarePreferences: z.array(hardware).default([]),
     additionalDescription: z.string().trim().max(1000, "Use no máximo 1000 caracteres.").optional(),
     budgetRange: z.enum(budgetRanges).optional().or(z.literal("")),
+    wantsTechnical3DProject: z.boolean().default(false),
+    wantsTechnicalVisit: z.boolean().default(false),
     lgpdConsentAccepted: z.literal(true, {
       error: "Você precisa aceitar a Política de Privacidade.",
     }),
@@ -43,6 +45,13 @@ export const quotationFormSchema = z
         code: "custom",
         path: ["otherFurnitureType"],
         message: "Descreva o tipo de móvel.",
+      });
+    }
+    if (data.wantsTechnicalVisit && !data.wantsTechnical3DProject) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["wantsTechnicalVisit"],
+        message: "A visita técnica só é permitida se contratar o projeto 3D técnico.",
       });
     }
   });
@@ -65,6 +74,8 @@ export function formDataToQuotationInput(formData: FormData) {
     hardwarePreferences: formData.getAll("hardwarePreferences").map(String),
     additionalDescription: String(formData.get("additionalDescription") ?? ""),
     budgetRange: String(formData.get("budgetRange") ?? ""),
+    wantsTechnical3DProject: formData.get("wantsTechnical3DProject") === "on",
+    wantsTechnicalVisit: formData.get("wantsTechnicalVisit") === "on",
     lgpdConsentAccepted: formData.get("lgpdConsentAccepted") === "on",
   };
 }

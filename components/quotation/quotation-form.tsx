@@ -1,9 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { submitQuotationRequest, type QuotationActionState } from "@/app/actions/quotation";
-import { budgetRanges, finishOptions, furnitureTypes, hardwareOptions } from "@/lib/quotation/options";
+import {
+  budgetRanges,
+  finishOptions,
+  furnitureTypes,
+  hardwareOptions,
+  technical3DProject,
+  technicalVisit,
+} from "@/lib/quotation/options";
 import { Field, inputClass } from "@/components/shared/form-field";
 import { ConfirmationCard } from "./confirmation-card";
 import { PhotoUploadField } from "./photo-upload-field";
@@ -12,6 +19,8 @@ const initialState: QuotationActionState = { ok: false };
 
 export function QuotationForm() {
   const [state, formAction, pending] = useActionState(submitQuotationRequest, initialState);
+  const [wantsTechnical3DProject, setWantsTechnical3DProject] = useState(false);
+  const [wantsTechnicalVisit, setWantsTechnicalVisit] = useState(false);
 
   if (state.ok && state.protocol) {
     return <ConfirmationCard protocol={state.protocol} receiptStatus={state.receiptStatus} />;
@@ -103,6 +112,53 @@ export function QuotationForm() {
           ))}
         </select>
       </Field>
+
+      <fieldset className="grid gap-3 rounded-md border border-[var(--line)] bg-slate-50 p-4">
+        <legend className="px-1 text-sm font-semibold">Projeto e visita técnica</legend>
+        <label className="flex gap-3 text-sm">
+          <input
+            checked={wantsTechnical3DProject}
+            name="wantsTechnical3DProject"
+            onChange={(event) => {
+              setWantsTechnical3DProject(event.target.checked);
+              if (!event.target.checked) setWantsTechnicalVisit(false);
+            }}
+            type="checkbox"
+          />
+          <span>{technical3DProject.label}</span>
+        </label>
+        {wantsTechnical3DProject ? (
+          <p className="rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+            {technical3DProject.notice}
+          </p>
+        ) : null}
+        <div
+          aria-describedby="technical-visit-help"
+          className="grid gap-1"
+          tabIndex={wantsTechnical3DProject ? undefined : 0}
+          title={wantsTechnical3DProject ? undefined : technicalVisit.disabledHelp}
+        >
+          <label className={`flex gap-3 text-sm ${wantsTechnical3DProject ? "" : "text-slate-500"}`}>
+            <input
+              checked={wantsTechnicalVisit}
+              disabled={!wantsTechnical3DProject}
+              name="wantsTechnicalVisit"
+              onChange={(event) => setWantsTechnicalVisit(event.target.checked)}
+              type="checkbox"
+            />
+            <span>{technicalVisit.label}</span>
+          </label>
+          {!wantsTechnical3DProject ? (
+            <p className="text-xs text-[var(--muted)]" id="technical-visit-help">
+              {technicalVisit.disabledHelp}
+            </p>
+          ) : null}
+          {error("wantsTechnicalVisit") ? (
+            <p className="text-xs text-red-700">{error("wantsTechnicalVisit")}</p>
+          ) : null}
+        </div>
+      </fieldset>
+
       <Field label="Fotos do ambiente (opcional)">
         <PhotoUploadField />
       </Field>

@@ -26,6 +26,9 @@ an on-screen confirmation result.
 - `hardwarePreferences`: optional list of V1 hardware preference values
 - `additionalDescription`: optional string, max 1000 characters
 - `budgetRange`: optional V1 budget range
+- `wantsTechnical3DProject`: optional boolean, defaults false
+- `wantsTechnicalVisit`: optional boolean, defaults false and valid only when
+  `wantsTechnical3DProject` is true
 - `photos`: optional list, max 3 jpg/png/webp images, max 5 MB each
 - `lgpdConsentAccepted`: required true
 
@@ -43,11 +46,14 @@ an on-screen confirmation result.
   the last 10 minutes
 - Upload validation errors for unsupported type, too many files, or oversized
   files
+- Technical visit validation error when requested without technical 3D project
 - General save failure without creating a partial request
 
 ### Side Effects
 
 - Creates `QuotationRequest`
+- Stores technical 3D project and technical visit choices, including the fixed
+  technical 3D project fee metadata when requested
 - Stores accepted photos and `QuotationPhoto` metadata
 - Attempts receipt email
 - Stores `receiptStatus` and failure reason if delivery fails

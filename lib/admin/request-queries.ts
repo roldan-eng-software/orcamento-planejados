@@ -10,6 +10,22 @@ export type RequestListFilters = {
   page?: number;
 };
 
+export const adminRequestListSelect = {
+  id: true,
+  protocol: true,
+  customerName: true,
+  furnitureType: true,
+  createdAt: true,
+  status: true,
+  receiptStatus: true,
+  wantsTechnical3DProject: true,
+  wantsTechnicalVisit: true,
+} satisfies Prisma.QuotationRequestSelect;
+
+export type AdminRequestListItem = Prisma.QuotationRequestGetPayload<{
+  select: typeof adminRequestListSelect;
+}>;
+
 export async function listAdminRequests(filters: RequestListFilters = {}) {
   const prisma = getPrisma();
   const page = Math.max(filters.page ?? 1, 1);
@@ -33,6 +49,7 @@ export async function listAdminRequests(filters: RequestListFilters = {}) {
   const [items, total] = await Promise.all([
     prisma.quotationRequest.findMany({
       where,
+      select: adminRequestListSelect,
       orderBy: { createdAt: "desc" },
       skip: (page - 1) * 20,
       take: 20,

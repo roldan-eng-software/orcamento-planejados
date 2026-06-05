@@ -39,13 +39,21 @@ npm run test:e2e
 4. Click "Entendo o que não pedir" and confirm the alert closes without
    leaving `/`.
 5. Read the service summary and checklist.
-6. Fill all required form fields, accept LGPD consent, and submit.
-7. Confirm the form is replaced by a confirmation card on the same page.
-8. Confirm the protocol matches `ORC-YYYYMMDD-XXXX`.
-9. Confirm the request appears in the admin request list.
+6. Confirm the technical visit option is disabled before selecting technical 3D
+   project and exposes the help text explaining that the visit is allowed only
+   when hiring the 3D project.
+7. Select "Projeto 3D técnico" and confirm the form shows the `R$ 100,00` cost
+   notice and discount possibility.
+8. Confirm the technical visit option becomes enabled, then select it.
+9. Fill all required form fields, accept LGPD consent, and submit.
+10. Confirm the form is replaced by a confirmation card on the same page.
+11. Confirm the protocol matches `ORC-YYYYMMDD-XXXX`.
+12. Confirm the request appears in the admin request list/detail with the
+   technical 3D project and technical visit choices.
 
 Expected outcome: The request is stored, the protocol is visible, and no
-customer account is required.
+customer account is required. The technical 3D and visit choices are preserved
+for admin review.
 
 ### 2. Customer validation blocks bad data
 
@@ -55,6 +63,16 @@ customer account is required.
 
 Expected outcome: Field-level errors identify the exact fields/files to fix and
 no request is created.
+
+### 2A. Technical visit requires technical 3D project
+
+1. Attempt to request technical visit before selecting "Projeto 3D técnico".
+2. Select "Projeto 3D técnico", then select technical visit.
+3. Deselect "Projeto 3D técnico".
+
+Expected outcome: Technical visit is disabled until the technical 3D project is
+selected, shows explanatory help while disabled, and is cleared again if the 3D
+project option is deselected.
 
 ### 3. Repeated submission is throttled
 

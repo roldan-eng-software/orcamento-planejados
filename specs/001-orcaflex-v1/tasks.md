@@ -4,14 +4,14 @@
 
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/, quickstart.md
 
-**Tests**: Required by the constitution and feature specification for validation, Server Actions, admin authorization, quote submission, deletion anonymization, throttling, receipt failures, stale status updates, homepage service-scope notice, and key E2E flows.
+**Tests**: Required by the constitution and feature specification for validation, Server Actions, admin authorization, quote submission, deletion anonymization, throttling, receipt failures, stale status updates, homepage service-scope notice, technical 3D/visit gating, and key E2E flows.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
 ## Format: `[ID] [P?] [Story] Description`
 
 - **[P]**: Can run in parallel (different files, no dependencies)
-- **[Story]**: Which user story this task belongs to (US1, US2, US3, US4, US5)
+- **[Story]**: Which user story this task belongs to (US1, US2, US3, US4, US5, US6)
 - Include exact file paths in descriptions
 
 ## Phase 1: Setup (Shared Infrastructure)
@@ -120,7 +120,37 @@
 
 ---
 
-## Phase 5: User Story 2 - Admin reviews and manages requests (Priority: P2)
+## Phase 5: User Story 6 - Customer requests technical 3D project and visit (Priority: P1)
+
+**Goal**: Customers can request a technical 3D project, see the R$ 100,00 service-fee notice, and request a technical visit only after selecting the 3D project option.
+
+**Independent Test**: Open `/`, dismiss the service-scope notice, verify technical visit is disabled with explanatory help, select "Projeto 3D técnico", verify the R$ 100,00 notice appears and technical visit becomes enabled, submit a valid request with both choices, and verify admin detail shows both choices.
+
+### Tests for User Story 6
+
+- [X] T102 [P] [US6] Add unit tests for technical 3D project and technical visit validation in tests/unit/quotation-validation.test.ts
+- [X] T103 [P] [US6] Add integration tests for submitQuotationRequest storing technical 3D and visit choices and rejecting visit without 3D in tests/integration/submit-quotation.test.ts
+- [X] T104 [P] [US6] Add Playwright E2E test for public form technical 3D notice, disabled visit help, enablement, clearing, and valid submission in tests/e2e/quote-technical-3d.spec.ts
+- [X] T105 [P] [US6] Add integration test for admin request detail/query exposing technical 3D and visit fields in tests/integration/admin-request-detail.test.ts
+
+### Implementation for User Story 6
+
+- [X] T106 [US6] Add technical 3D project and technical visit fields to Prisma QuotationRequest model in prisma/schema.prisma
+- [X] T107 [US6] Create Prisma migration for technical 3D project and technical visit request fields in prisma/migrations/002_technical_3d_visit/migration.sql
+- [X] T108 [US6] Extend quotation validation schema, exported types, and server-side visit-without-3D rejection in lib/validation/quotation.ts
+- [X] T109 [US6] Extend quotation request creation persistence for technical 3D fee metadata and visit choice in lib/quotation/requests.ts
+- [X] T110 [US6] Wire submitQuotationRequest FormData parsing and validation errors for technical 3D and visit fields in app/actions/quotation.ts
+- [X] T111 [US6] Add technical 3D and visit customer-facing option constants/copy in lib/quotation/options.ts
+- [X] T112 [US6] Implement technical 3D project checkbox, R$ 100,00 notice, disabled technical visit checkbox, tooltip/help text, and deselect clearing in components/quotation/quotation-form.tsx
+- [X] T113 [US6] Show technical 3D project and technical visit choices in admin request detail sections in components/admin/request-detail.tsx
+- [X] T114 [US6] Include technical 3D and technical visit fields in admin request query/detail selection in lib/admin/request-queries.ts
+- [X] T115 [US6] Update receipt email content to include technical 3D and visit choices when requested in lib/email/quotation-receipt.ts
+
+**Checkpoint**: US6 is independently testable through the public form and admin detail while preserving V1 manual-only pricing.
+
+---
+
+## Phase 6: User Story 2 - Admin reviews and manages requests (Priority: P2)
 
 **Goal**: The admin can sign in, view and filter requests, open details, update status, add private notes, see failed receipt status, and handle privacy anonymization.
 
@@ -157,7 +187,7 @@
 
 ---
 
-## Phase 6: User Story 3 - Admin replies through customer channel (Priority: P3)
+## Phase 7: User Story 3 - Admin replies through customer channel (Priority: P3)
 
 **Goal**: The admin can prepare email and WhatsApp replies from a request detail using customer contact data and protocol-aware message templates.
 
@@ -181,7 +211,7 @@
 
 ---
 
-## Phase 7: User Story 4 - Visitor accesses required static pages (Priority: P4)
+## Phase 8: User Story 4 - Visitor accesses required static pages (Priority: P4)
 
 **Goal**: Visitors can access LGPD-oriented privacy content and workshop contact information from static routes.
 
@@ -205,7 +235,7 @@
 
 ---
 
-## Phase 8: Polish & Cross-Cutting Concerns
+## Phase 9: Polish & Cross-Cutting Concerns
 
 **Purpose**: Validate launch readiness across stories and clean up shared documentation and quality gates.
 
@@ -217,6 +247,8 @@
 - [X] T093 Run Lighthouse check for public pages and record results in specs/001-orcaflex-v1/lighthouse-notes.md
 - [X] T094 Verify Constitution Check coverage against specs/001-orcaflex-v1/plan.md
 - [X] T101 Run service-scope notice focused checks and record any fixes in tests/e2e/service-scope-notice.spec.ts and tests/unit/service-scope-notice-content.test.ts
+- [X] T116 Run technical 3D/visit focused unit, integration, and E2E checks and record fixes in tests/unit/quotation-validation.test.ts, tests/integration/submit-quotation.test.ts, tests/integration/admin-request-detail.test.ts, and tests/e2e/quote-technical-3d.spec.ts
+- [X] T117 Run Prisma generate/build validation after technical 3D/visit schema changes in prisma/schema.prisma and package scripts
 
 ---
 
@@ -228,15 +260,17 @@
 - **Foundational (Phase 2)**: Depends on Setup completion and blocks all user stories.
 - **US1 Customer submission (Phase 3)**: Depends on Foundational. This is the MVP.
 - **US5 Service-scope notice (Phase 4)**: Depends on Setup and public page structure from US1; no database, Server Action, or auth dependency.
-- **US2 Admin management (Phase 5)**: Depends on Foundational and needs at least one request from US1 for end-to-end validation.
-- **US3 Reply actions (Phase 6)**: Depends on US2 request detail.
-- **US4 Static pages (Phase 7)**: Depends on Setup and can run after Foundational; privacy link integration touches US1 form.
-- **Polish (Phase 8)**: Depends on selected user stories being complete.
+- **US6 Technical 3D and visit (Phase 5)**: Depends on Foundational, US1 public form submission, and admin detail surfaces from US2 for full verification.
+- **US2 Admin management (Phase 6)**: Depends on Foundational and needs at least one request from US1 for end-to-end validation.
+- **US3 Reply actions (Phase 7)**: Depends on US2 request detail.
+- **US4 Static pages (Phase 8)**: Depends on Setup and can run after Foundational; privacy link integration touches US1 form.
+- **Polish (Phase 9)**: Depends on selected user stories being complete.
 
 ### User Story Dependencies
 
 - **US1 (P1)**: Independent MVP after Foundation.
 - **US5 (P1)**: Independent homepage qualification layer after public page composition exists; can be validated without backend state.
+- **US6 (P1)**: Depends on US1 form/action path and shared schema; admin-display validation uses US2 detail/query surfaces.
 - **US2 (P2)**: Operationally depends on request data from US1 but can be developed with seeded data after Foundation.
 - **US3 (P3)**: Depends on US2 detail page and request contact data.
 - **US4 (P4)**: Mostly independent; one task integrates the privacy link into the US1 form.
@@ -256,6 +290,8 @@
 - Foundational helpers T013-T015 and T018-T021 can run in parallel after T011.
 - US1 test tasks T031-T038 can run in parallel.
 - US5 test tasks T095-T096 can run in parallel before implementing the content/component files.
+- US6 test tasks T102-T105 can run in parallel before implementation.
+- US6 UI copy task T111 can run in parallel with Prisma migration tasks T106-T107.
 - US2 test tasks T051-T057 can run in parallel.
 - US3 test tasks T072-T074 can run in parallel.
 - US4 test tasks T080-T081 can run in parallel.
@@ -284,6 +320,15 @@ Task: "T047 [US1] Implement file input preview and limit messaging in components
 Task: "T095 [P] [US5] Add Playwright E2E test for homepage notice appearance, required copy, and close behavior in tests/e2e/service-scope-notice.spec.ts"
 Task: "T096 [P] [US5] Add unit test for service-scope notice content constants and acknowledgement label in tests/unit/service-scope-notice-content.test.ts"
 Task: "T097 [US5] Create service-scope notice content constants in lib/content/service-scope-notice.ts"
+```
+
+## Parallel Example: User Story 6
+
+```bash
+Task: "T102 [P] [US6] Add unit tests for technical 3D project and technical visit validation in tests/unit/quotation-validation.test.ts"
+Task: "T103 [P] [US6] Add integration tests for submitQuotationRequest storing technical 3D and visit choices and rejecting visit without 3D in tests/integration/submit-quotation.test.ts"
+Task: "T104 [P] [US6] Add Playwright E2E test for public form technical 3D notice, disabled visit help, enablement, clearing, and valid submission in tests/e2e/quote-technical-3d.spec.ts"
+Task: "T111 [US6] Add technical 3D and visit customer-facing option constants/copy in lib/quotation/options.ts"
 ```
 
 ## Parallel Example: User Story 2
@@ -328,26 +373,29 @@ Task: "T084 [US4] Create static content constants in lib/content/static-pages.ts
 2. Complete Phase 2: Foundational.
 3. Complete Phase 3: Customer submits quotation request.
 4. Complete Phase 4: Visitor acknowledges service-scope notice.
-5. Validate `/` with unit, integration, and E2E tests.
-6. Demo lead capture with protocol confirmation and service-scope acknowledgement.
+5. Complete Phase 5: Customer requests technical 3D project and visit.
+6. Validate `/` with unit, integration, and E2E tests.
+7. Demo lead capture with protocol confirmation, service-scope acknowledgement, and technical 3D/visit choices.
 
 ### Incremental Delivery
 
 1. Foundation ready.
 2. Add US1 customer submission and deploy/demo MVP.
 3. Add US5 service-scope notice to qualify homepage visitors before form use.
-4. Add US2 admin management and privacy operations.
-5. Add US3 reply actions.
-6. Add US4 static pages and final launch compliance.
-7. Run polish checks and quickstart validation.
+4. Add US6 technical 3D and technical visit request gating.
+5. Add US2 admin management and privacy operations.
+6. Add US3 reply actions.
+7. Add US4 static pages and final launch compliance.
+8. Run polish checks and quickstart validation.
 
 ### Team Parallel Strategy
 
 1. One developer owns schema/auth/foundation.
 2. One developer writes US1 tests and public form UI.
 3. One developer writes US5 notice tests/content/component files.
-4. One developer prepares admin query/action tests for US2.
-5. Once foundation is merged, story work proceeds independently by file area.
+4. One developer writes US6 schema/action validation and public form gating.
+5. One developer prepares admin query/action tests for US2.
+6. Once foundation is merged, story work proceeds independently by file area.
 
 ---
 

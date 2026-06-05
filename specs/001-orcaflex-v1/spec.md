@@ -162,6 +162,39 @@ and verifies the alert closes while the homepage remains available.
    não pedir", **Then** the alert closes and the visitor can use the homepage
    and quotation form normally.
 
+---
+
+### User Story 6 - Customer requests technical 3D project and visit (Priority: P1)
+
+An anonymous customer filling the quotation form can request a technical 3D
+project. When they select this option, the form clearly warns that the 3D
+project costs R$ 100,00 and that this amount may be used as a discount if the
+customer closes the fabrication contract. After accepting/requesting the 3D
+project, the customer can also request a technical visit.
+
+**Why this priority**: This qualifies paid pre-project work before the workshop
+spends design or travel time, while still capturing customers who want a more
+detailed evaluation path.
+
+**Independent Test**: A tester opens `/`, dismisses the service-scope alert,
+checks that the technical visit field is disabled with explanatory tooltip
+copy, selects the technical 3D project option, verifies the R$ 100,00 notice is
+shown, and verifies the technical visit option becomes enabled.
+
+**Acceptance Scenarios**:
+
+1. **Given** a customer is filling the quotation form, **When** they have not
+   selected the technical 3D project option, **Then** the technical visit
+   option is disabled and explains on hover/focus that a technical visit is
+   allowed only when hiring the 3D project.
+2. **Given** a customer selects the technical 3D project option, **When** the
+   option becomes active, **Then** the form shows a clear notice that the
+   project costs R$ 100,00 and that this amount may become a discount in the
+   fabrication contract.
+3. **Given** a customer selected the technical 3D project option, **When** they
+   choose technical visit and submit a valid request, **Then** the request saves
+   both choices for admin review.
+
 ### Edge Cases
 
 - A customer chooses "Outro" as furniture type; the system requires a free-text
@@ -197,6 +230,11 @@ and verifies the alert closes while the homepage remains available.
 - A visitor lands on the homepage using a small mobile viewport; the
   service-scope alert remains readable, keeps the acknowledgement button
   visible, and does not require horizontal scrolling.
+- A customer tries to request technical visit without selecting technical 3D
+  project; the UI keeps the visit option disabled and server-side validation
+  rejects any manipulated submission that sends visit without 3D project.
+- A customer selects technical 3D project and then deselects it; the technical
+  visit option is cleared and disabled again.
 
 ### Compliance and Market Notes *(mandatory)*
 
@@ -301,6 +339,18 @@ and verifies the alert closes while the homepage remains available.
   qualidade ou instalação de móveis adquiridos pela internet."
 - **FR-030**: The service-scope alert MUST provide a button labeled "Entendo o
   que não pedir" and MUST close the alert when the button is clicked.
+- **FR-031**: The quotation form MUST include an optional "Projeto 3D técnico"
+  choice.
+- **FR-032**: When "Projeto 3D técnico" is selected, the form MUST show a clear
+  notice that the technical 3D project costs `R$ 100,00` and that this amount
+  may be used as a discount if the customer closes the fabrication contract.
+- **FR-033**: The quotation form MUST include an optional technical visit choice
+  that remains disabled until "Projeto 3D técnico" is selected.
+- **FR-034**: When technical visit is disabled, the form MUST expose explanatory
+  tooltip/help text on hover and focus stating that technical visit is allowed
+  only when hiring the technical 3D project.
+- **FR-035**: Server-side validation MUST reject any quotation submission that
+  requests technical visit without also requesting the technical 3D project.
 
 ### Constitutional Requirements *(mandatory)*
 
@@ -319,9 +369,10 @@ and verifies the alert closes while the homepage remains available.
 - **QuotationRequest**: A customer quotation request, including protocol number,
   customer contact data, preferred contact channel, furniture details,
   dimensions, selected finishes, optional hardware preferences, optional budget,
-  optional description, status, automatic receipt confirmation status, consent
-  record, submission timestamp, status version or last-updated marker, and
-  forward-compatible pricing fields. When deletion is requested, personal
+  optional description, optional technical 3D project request, optional
+  technical visit request, status, automatic receipt confirmation status,
+  consent record, submission timestamp, status version or last-updated marker,
+  and forward-compatible pricing fields. When deletion is requested, personal
   identifiers are anonymized while non-personal project and status history is
   retained.
 - **QuotationPhoto**: An uploaded project image associated with one quotation
@@ -374,6 +425,9 @@ and verifies the alert closes while the homepage remains available.
 - **SC-013**: 100% of homepage entry tests show the service-scope alert before
   form interaction and allow it to close through the "Entendo o que não pedir"
   button without navigating away.
+- **SC-014**: 100% of form interaction tests keep technical visit disabled until
+  technical 3D project is selected, show the `R$ 100,00` notice when selected,
+  and save both choices on valid submission.
 
 ## Assumptions
 

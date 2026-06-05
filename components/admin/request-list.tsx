@@ -1,9 +1,9 @@
 import Link from "next/link";
-import type { QuotationRequest } from "@prisma/client";
+import type { AdminRequestListItem } from "@/lib/admin/request-queries";
 import { StatusBadge } from "@/components/shared/status-badge";
 import { formatDateBR } from "@/lib/formatting/locale";
 
-export function RequestList({ items }: { items: QuotationRequest[] }) {
+export function RequestList({ items }: { items: AdminRequestListItem[] }) {
   if (items.length === 0) {
     return <p className="rounded-md border border-dashed border-[var(--line)] bg-white p-6 text-center">Nenhum pedido encontrado.</p>;
   }

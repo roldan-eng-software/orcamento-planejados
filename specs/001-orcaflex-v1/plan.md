@@ -16,7 +16,9 @@ and e-commerce versions. The public homepage also shows a floating
 service-scope alert before interaction so visitors acknowledge that the workshop
 only accepts new, custom, medium/high-standard planned furniture requests and
 does not accept reforms, repairs, loose MDF pieces, low-quality MDF, solid-wood
-services, or internet-purchased furniture installation.
+services, or internet-purchased furniture installation. The public quotation
+form also lets customers request a paid technical 3D project and, only after
+that option is selected, request a technical visit.
 
 ## Technical Context
 
@@ -31,8 +33,8 @@ Storage for optional quotation photos; Supabase Auth for admin identity
 
 **Testing**: Unit tests for validation and utilities; integration tests for
 Server Actions, admin authorization, storage/email failure handling, deletion
-anonymization, throttling, and stale status updates; Playwright E2E for quote
-submission and admin review flows
+anonymization, throttling, technical 3D/visit gating, and stale status updates;
+Playwright E2E for quote submission and admin review flows
 
 **Target Platform**: Vercel production and preview deployments; Supabase managed
 project for database, auth, storage, and email function runtime
@@ -49,7 +51,8 @@ pricing, multi-tenant admin, checkout, CNC output, native mobile app, Redux, or
 Zustand; customer form submission uses a Server Action, not a separate REST
 endpoint; database changes begin with Prisma migrations; homepage
 service-scope notice is non-persisted UI state and does not introduce cookies,
-localStorage, database tables, or new API endpoints
+localStorage, database tables, or new API endpoints; the technical 3D project
+fee is a fixed service-fee disclosure, not automated furniture pricing
 
 **Scale/Scope**: One workshop/admin for V1, anonymous customer submissions,
 request list paginated at 20 items per page, max 3 images per request, max
@@ -74,23 +77,28 @@ request list paginated at 20 items per page, max 3 images per request, max
 - **RBAC**: PASS. V1 uses `admin` and preserves role model for `customer` and
   `super_admin`; admin operations require server-side authorization.
 - **Pricing Isolation**: PASS. No pricing behavior is implemented in V1; pricing
-  fields are nullable forward-compatible fields only.
+  fields are nullable forward-compatible fields only. The R$ 100,00 3D project
+  amount is a fixed service-fee notice stored as request metadata and does not
+  calculate furniture price.
 - **Mobile and Market Fit**: PASS. Customer flow is mobile-first and follows
   Brazilian Portuguese, BRL, `DD/MM/YYYY`, Brazilian phone, and LGPD rules.
 - **Lead Qualification UX**: PASS. The homepage notice uses Brazilian
   Portuguese copy, appears before form interaction, and closes with an explicit
   acknowledgement button without collecting personal data.
+- **Paid Pre-Project UX**: PASS. The technical 3D project option uses Brazilian
+  Portuguese currency copy, gates technical visit, and keeps the customer flow
+  mobile-first.
 - **Performance and Simplicity**: PASS. Single Next.js app, minimal dependency
   set, optimized image handling, and V1 Lighthouse targets are preserved.
 - **Testing Gate**: PASS. Required unit, integration, and E2E coverage is called
   out for validation, Server Actions, admin auth, quote submission, deletion,
-  throttling, confirmation failure, stale status updates, and the homepage
-  service-scope notice.
+  throttling, confirmation failure, stale status updates, the homepage
+  service-scope notice, and technical 3D/visit gating.
 
 **Post-Design Re-check**: PASS. Phase 1 artifacts preserve all gates; the
-service-scope notice adds only client-side UI state, no persistence, no new API
-surface, and no constitutional deviations requiring Complexity Tracking
-entries.
+service-scope notice adds only client-side UI state, and the technical 3D/visit
+fields add schema-first request metadata with Server Action validation. No
+constitutional deviations require Complexity Tracking entries.
 
 ## Project Structure
 

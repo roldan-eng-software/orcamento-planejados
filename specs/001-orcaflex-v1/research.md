@@ -143,3 +143,22 @@ alert.
 - Use a browser `alert()`: rejected because it is not stylable, provides poor
   accessibility/control, and cannot present the required content with the
   product's visual language.
+
+## Decision: Persist technical 3D project and technical visit choices on the quotation request
+
+**Rationale**: The customer choices affect workshop follow-up and admin review,
+so they belong on `QuotationRequest` as schema-first boolean fields. The
+technical 3D project amount is a fixed service-fee disclosure (`R$ 100,00`) and
+not automated furniture pricing, so it can be stored as request metadata
+without introducing a pricing engine in V1. Server-side validation must enforce
+that technical visit cannot be requested unless the technical 3D project is
+also requested, because client-side disabled controls can be bypassed.
+
+**Alternatives considered**:
+
+- Keep the choices only in UI state: rejected because admin needs to see and
+  act on the customer's request after submission.
+- Store the choices in `additionalDescription`: rejected because it makes
+  filtering, validation, admin display, and future migration brittle.
+- Introduce a full pricing/payment flow for the R$ 100,00 fee: rejected because
+  V1 remains manual-only and does not include checkout or automated pricing.
