@@ -29,8 +29,8 @@ export function QuotationForm() {
   const error = (name: string) => state.fieldErrors?.[name]?.[0];
 
   return (
-    <form action={formAction} method="POST" encType="multipart/form-data" className="grid gap-5 rounded-md border border-[var(--line)] bg-white p-5 shadow-sm">
-      <div className="grid gap-4 md:grid-cols-2">
+    <form action={formAction} className="grid w-full min-w-0 gap-5 rounded-md border border-[var(--line)] bg-white p-5 shadow-sm">
+      <div className="grid min-w-0 gap-4 md:grid-cols-2">
         <Field label="Nome completo" error={error("fullName")}>
           <input className={inputClass} name="fullName" autoComplete="name" />
         </Field>
@@ -48,7 +48,7 @@ export function QuotationForm() {
         </Field>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid min-w-0 gap-4 md:grid-cols-2">
         <Field label="Tipo de móvel" error={error("furnitureType")}>
           <select className={inputClass} name="furnitureType" defaultValue="">
             <option value="" disabled>Selecione</option>
@@ -63,7 +63,7 @@ export function QuotationForm() {
         <Field label="Ambiente de instalação" error={error("installationRoom")}>
           <input className={inputClass} name="installationRoom" placeholder="Quarto do casal" />
         </Field>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid min-w-0 gap-3 sm:grid-cols-3">
           <Field label="Largura (cm)" error={error("approxWidthCm")}>
             <input className={inputClass} name="approxWidthCm" type="number" min="1" />
           </Field>

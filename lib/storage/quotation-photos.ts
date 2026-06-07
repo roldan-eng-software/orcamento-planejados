@@ -1,4 +1,4 @@
-import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { createServiceRoleSupabaseClient } from "@/lib/supabase/server";
 import { validatePhotos } from "./photo-validation";
 
 export type StoredPhoto = {
@@ -14,7 +14,7 @@ function getStorageBucketName() {
 
 export async function ensureStorageBucketAvailable() {
   const bucket = getStorageBucketName();
-  const supabase = await createServerSupabaseClient();
+  const supabase = createServiceRoleSupabaseClient();
   const { data, error } = await supabase.storage.getBucket(bucket);
 
   if (error) {
@@ -48,7 +48,7 @@ export async function storeQuotationPhotos(protocol: string, files: File[]) {
     return bucketCheck;
   }
 
-  const supabase = await createServerSupabaseClient();
+  const supabase = createServiceRoleSupabaseClient();
   const photos: StoredPhoto[] = [];
 
   for (const [index, file] of files.entries()) {

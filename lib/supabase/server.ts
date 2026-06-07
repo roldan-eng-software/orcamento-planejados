@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import { createClient } from "@supabase/supabase-js";
 import { createServerClient } from "@supabase/ssr";
 
 function assertSupabaseEnv(name: string, value: string | undefined, placeholder?: string) {
@@ -12,6 +13,11 @@ function assertSupabaseEnv(name: string, value: string | undefined, placeholder?
 }
 
 const SUPABASE_URL = assertSupabaseEnv("NEXT_PUBLIC_SUPABASE_URL", process.env.NEXT_PUBLIC_SUPABASE_URL, "https://example.supabase.co");
+const SUPABASE_PUBLISHABLE_KEY = assertSupabaseEnv(
+  "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+  "publishable-key",
+);
 const SUPABASE_SERVICE_ROLE_KEY = assertSupabaseEnv(
   "SUPABASE_SERVICE_ROLE_KEY",
   process.env.SUPABASE_SERVICE_ROLE_KEY,
@@ -19,7 +25,7 @@ const SUPABASE_SERVICE_ROLE_KEY = assertSupabaseEnv(
 
 export async function createServerSupabaseClient() {
   const cookieStore = await cookies();
-  return createServerClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+  return createServerClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
     cookies: {
       getAll() {
         return cookieStore.getAll();
@@ -29,6 +35,15 @@ export async function createServerSupabaseClient() {
           cookieStore.set(name, value, options);
         });
       },
+    },
+  });
+}
+
+export function createServiceRoleSupabaseClient() {
+  return createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
     },
   });
 }

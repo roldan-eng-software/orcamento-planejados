@@ -4,10 +4,10 @@ import { ServiceScopeNotice } from "@/components/quotation/service-scope-notice"
 
 export default function HomePage() {
   return (
-    <main className="mx-auto max-w-6xl px-4 pb-16">
+    <main className="mx-auto w-full max-w-6xl min-w-0 px-4 pb-16">
       <ServiceScopeNotice />
       <LandingGuidance />
-      <section className="grid gap-4" id="orcamento">
+      <section className="grid min-w-0 gap-4" id="orcamento">
         <h2 className="text-2xl font-bold">Solicite seu orçamento</h2>
         <QuotationForm />
       </section>
