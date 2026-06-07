@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
+import { Suspense } from "react";
+import { GoogleAnalyticsPageView } from "@/components/analytics/google-analytics-page-view";
 import "./globals.css";
+
+const googleAnalyticsId = "G-T6H05QHR20";
 
 export const metadata: Metadata = {
   title: "Roldan Marcenaria",
@@ -28,6 +33,21 @@ export default function RootLayout({
           </nav>
         </header>
         {children}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${googleAnalyticsId}', { send_page_view: false });
+          `}
+        </Script>
+        <Suspense fallback={null}>
+          <GoogleAnalyticsPageView measurementId={googleAnalyticsId} />
+        </Suspense>
       </body>
     </html>
   );
