@@ -34,19 +34,34 @@ function getSupabaseServiceRoleKey() {
   ]);
 }
 
-export async function createServerSupabaseClient() {
+export async function createServerSupabaseClient({
+  allowCookieWrites = false,
+}: {
+  allowCookieWrites?: boolean;
+} = {}) {
   const cookieStore = await cookies();
-  return createServerClient(getSupabaseUrl(), getSupabasePublishableKey(), {
-    cookies: {
-      getAll() {
-        return cookieStore.getAll();
-      },
-      setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value, options }) => {
-          cookieStore.set(name, value, options);
-        });
-      },
+  type CookieToSet = {
+    name: string;
+    value: string;
+    options?: Parameters<typeof cookieStore.set>[2];
+  };
+  const cookieMethods = {
+    getAll() {
+      return cookieStore.getAll();
     },
+    ...(allowCookieWrites
+      ? {
+          setAll(cookiesToSet: CookieToSet[]) {
+            cookiesToSet.forEach(({ name, value, options }) => {
+              cookieStore.set(name, value, options);
+            });
+          },
+        }
+      : {}),
+  };
+
+  return createServerClient(getSupabaseUrl(), getSupabasePublishableKey(), {
+    cookies: cookieMethods,
   });
 }
 

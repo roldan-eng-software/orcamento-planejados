@@ -11,7 +11,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" data-scroll-behavior="smooth">
       <body>
         <header className="border-b border-[var(--line)] bg-white/85">
           <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
